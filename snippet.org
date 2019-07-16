@@ -1,0 +1,467 @@
+* TODO                                            :emacs:lisp:zilong:hotspot:
+#+BEGIN_SRC emacs-lisp
+(defun zilongshanren//hotspots-sources ()
+  "Construct the helm sources for my hotspots"
+  `((name . "Mail and News")
+    (candidates . (("Calendar" . (lambda ()  (browse-url "https://www.google.com/calendar/render")))
+                   ("RSS" . elfeed)
+                   ("Blog" . org-octopress)
+                   ("Github" . (lambda() (helm-github-stars)))
+                   ("Calculator" . (lambda () (helm-calcul-expression)))
+                   ("Run current flie" . (lambda () (zilongshanren/run-current-file)))
+                   ("Agenda" . (lambda () (org-agenda "" "a")))
+                   ("sicp" . (lambda() (browse-url "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")))))
+    (candidate-number-limit)
+    (action . (("Open" . (lambda (x) (funcall x)))))))
+
+#+END_SRC
+* %?    :zilong:org:capture:
+#+BEGIN_SRC emacs-lisp
+      (setq :zilong:org:capture:org-capture-templates
+            '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
+               "* TODO [#B] %?\n  %i\n"
+               :empty-lines 1)
+              ("n" "notes" entry (file+headline org-agenda-file-note "Quick notes")
+               "* %?\n  %i\n %U"
+               :empty-lines 1)
+              ("b" "Blog Ideas" entry (file+headline org-agenda-file-note "Blog Ideas")
+               "* TODO [#B] %?\n  %i\n %U"
+               :empty-lines 1)
+              ;; yiddi:comment ------------------
+              ;; ("s" "Code Snippet" entry
+              ;;  (file org-agenda-file-code-snippet)
+              ;;  "* %?\t\n#+BEGIN_SRC \n\n#+END_SRC")
+              ;; ("w" "work" entry (file+headline org-agenda-file-gtd "Cocos2D-X")
+              ;;  "* TODO [#A] %?\n  %i\n %U"
+              ;;  :empty-lines 1)
+              ;; yiddi:add to collect good source code block-------------------------------
+              ("s" "Code Snippet" entry
+               (file org-agenda-file-code-snippet)
+               "* %?\t:hotspot:\n#+BEGIN_SRC \n%c\n#+END_SRC\nFile:%F\nTime:%T")
+              ("c" "Chrome" entry (file+headline org-agenda-file-note "Quick notes")
+               "* [#C] %?\n %(zilongshanren/retrieve-chrome-current-tab-url)\n %i\n %U"
+               :empty-lines 1)
+              ("l" "links" entry (file+headline org-agenda-file-note "Quick notes")
+               "* [#C] %?\n  %i\n %a \n %U"
+               :empty-lines 1)
+              ("j" "Journal Entry"
+               entry (file+datetree org-agenda-file-journal)
+               "* %?"
+               :empty-lines 1)
+              ;; yiddi:add to coordinate with org-capture extension in chrome. -----------
+              ("p" "Protocol" entry (file+headline org-agenda-file-journal"Chome Inbox")
+               "* TODO %c\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"
+               :immediate-finish)
+              ("L" "Protocol Link" entry (file+headline org-agenda-file-journal"Chome Inbox")
+               "* TODO  %? [[%:link][%:description]] \nCaptured On: %U"
+               )
+              ("f" "family-todo" entry (file+headline org-agenda-file-gtd "Family")
+               "* TODO [#C] %?\n  %i\n %U"
+               :empty-lines 1)
+              ;; -------------------------------------------------------------------------
+              ))
+
+#+END_SRC
+File:/home/yiddi/.spacemacs.d/layers/zilongshanren-org/packages.el
+* DONE some code snippet                                :zilong:org:property:
+  CLOSED: [2017-03-12 Sun 09:55]
+  :LOGBOOK:
+  - State "DONE"       from "MEETING"    [2017-03-12 Sun 09:56]
+  :END:
+#+BEGIN_SRC org
+#+TITLE:   Code Snippets in Org Mode
+#+AUTHOR:  Yiddish.kop
+#+EMAIL:   yiddishkop@163.com
+#+DATE:    <2017-03-01 三>
+
+#+END_SRC
+File:/home/yiddi/Documents/org-notes/Tests/test-org-code.org
+* 定制化org-capture界面的模板快捷鍵                      :zilong:org:capture:
+#+BEGIN_SRC emacs-lisp
+      (setq org-agenda-custom-commands
+            '(
+              ("w" . "任务安排")
+              ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
+              ("wb" "重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
+              ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
+              ("b" "Blog" tags-todo "BLOG")
+              ("p" . "项目安排")
+              ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"cocos2d-x\"")
+              ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"zilongshanren\"")
+              ("W" "Weekly Review"
+               ((stuck "") ;; review stuck projects as designated by org-stuck-projects
+                (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
+                ))))
+
+#+END_SRC
+Link:   [[file:~/.spacemacs.d/layers/zilongshanren-org/packages.el]]
+File:   /home/yiddi/.spacemacs.d/layers/zilongshanren-org/packages.el
+* what is 'stuck' means in org                               :org:stuck:todo:
+#+BEGIN_SRC org
+      (setq org-stuck-projects
+            '("TODO={.+}/-DONE" nil nil "SCHEDULED:\\|DEADLINE:"))
+
+#+END_SRC
+Link:   [[file:~/.spacemacs.d/layers/zilongshanren-org/packages.el::'("TODO={.+}/-DONE"%20nil%20nil%20"SCHEDULED:\\|DEADLINE:"))]]
+File:   /home/yiddi/.spacemacs.d/layers/zilongshanren-org/packages.el
+* org capture 模板實例                                     :org:capture:todo:
+     #+BEGIN_SRC org
+     * SOMEDAY %^{Author} - %^{Title}
+     :PROPERTIES:
+     :PAGES: %^{Pages}
+     :GENRE: %^{Genre}
+     :END:
+
+     - Recommended by %^{recommended by}
+     :LOGBOOK:
+     - Added: %U
+     :END:
+
+     #+END_SRC
+Link:   [[file:~/.spacemacs.d/layers/zilongshanren-org/packages.el:::empty-lines%201)]]
+File:   /home/yiddi/.spacemacs.d/layers/zilongshanren-org/packages.el
+* MESSY [func impl] insert a line beneath the cursor                  :elisp:
+#+BEGIN_SRC emacs-lisp
+   instert a line beneath the cursor.
+   #+BEGIN_SRC emacs-lisp
+;; yiddi comment
+;; 1. cache current state of emacs
+;; 2. move to the head of line
+;; 3. newline
+;; 1 and 4 -> save-excursion
+(defun my/insert-line-before ()
+  "Insert a newline above the line containing the cursor."
+  (interactive)
+  (save-excursion ;; save the state before run this funtion
+    (move-beginning-of-line 1)
+    (newline)) ;; <-- Hrm..
+  ;; go back to where i started
+  )
+   #+END_SRC
+
+#+END_SRC
+Link:   [[file:~/Documents/org-notes/notes.org::*Emacs%20introduction%20and%20demonstrattion][Emacs introduction and demonstrattion]]
+File:   /home/yiddi/Documents/org-notes/notes.org
+* 從源代碼中找到的三個鉤子                                :elisp:org:capture:
+#+BEGIN_SRC emacs-lisp
+(defcustom org-capture-before-finalize-hook nil
+  "Hook that is run right before a capture process is finalized.
+The capture buffer is still current when this hook runs and it is
+widened to the entire buffer."
+  :group 'org-capture
+  :version "24.1"
+  :type 'hook)
+
+(defcustom org-capture-after-finalize-hook nil
+  "Hook that is run right after a capture process is finalized.
+Suitable for window cleanup."
+  :group 'org-capture
+  :version "24.1"
+  :type 'hook)
+
+(defcustom org-capture-prepare-finalize-hook nil
+  "Hook that is run before the finalization starts.
+The capture buffer is current and still narrowed."
+  :group 'org-capture
+  :version "24.1"
+  :type 'hook)
+
+#+END_SRC
+Link:   [[file:~/.emacs.d/elpa/org-plus-contrib-20170210/org-capture.el:::type%20'hook)]]
+File:   /home/yiddi/.emacs.d/elpa/org-plus-contrib-20170210/org-capture.el
+* Code Snippet
+** how to tips an alert from emacs in ubuntu                     :mu4e:alert:
+this function will tips an alert in my ele-os, study it
+ #+BEGIN_SRC emacs-lisp
+  (setq mu4e-enable-notifications t)
+  (setq mu4e-enable-mode-line t)
+   (with-eval-after-load 'mu4e-alert
+     ;; Enable Desktop notifications
+     (mu4e-alert-set-default-style 'notifications)) ; For linux
+   ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+
+ #+END_SRC
+ Link:   [[file:~/.spacemacs.d/init.el::;;%20(mu4e-alert-set-default-style%20'libnotify))%20;%20Alternative%20for%20linux]]
+ File:   /home/yiddi/.spacemacs.d/init.el
+** how to check a prime? and get a new prime                          :other:
+ #+BEGIN_SRC emacs-lisp
+ (defun prime (n)
+   "Is N a prime number?"
+   (loop for i from 2 to (isqrt n)
+         never (multiple n i)))
+
+ (defparameter *next-new-prime* nil)
+
+ (defun new-prime ()
+   "Returns a new prime we haven't used yet."
+   (prog1 *next-new-prime*
+     (setf *next-new-prime*
+           (loop for i from (+ *next-new-prime* 1)
+                 if (prime i)
+                   return i))))
+ #+END_SRC
+ Link:   http://malisper.me/
+** a simple bash code example                                   :bash:eshell:
+ #+BEGIN_SRC shell
+ #!/bin/bash
+ for i in {1..5}; do
+    echo "for $i"
+ done
+
+ a=10
+ until [ ! $a -gt 0 ]; do
+     echo "count down $a"
+     a=`expr $a - 1`
+ done
+
+ #+END_SRC
+ Link:   [[file:~/Documents/Test/shell_eg.sh][file:~/Documents/Test/shell_eg.sh]]
+ File:   /home/yiddi/Documents/Test/shell_eg.sh
+** See how to insert picture in org-mode                                :org:
+
+see how to insert picture in org mode
+
+ #+BEGIN_SRC emacs-lisp
+;;* Insert org figures and tables
+(defun jmax-insert-figure (fname width params)
+  "Insert FNAME as a figure in org-mode.
+WIDTH specifies how wide it should be, e.g. 300, 3.25in, or 4cm.
+PARAMS is a string like \":placement [H]\"."
+  (interactive (list
+        (ido-read-file-name "File: ")
+        (read-input "Org width: " "200")
+        (read-input "Parameters: ")))
+
+  ;; parse width
+  (let ((dpi 72)
+    org-width latex-width)
+    ;; calculate width
+    (cond
+     ((string= "" width)
+      (setq width nil
+        org-width nil))
+     ((string-match "\\([0-9]\\.?[0-9]*\\)in" width)
+      (setq org-width (* dpi (string-to-number (string-match 1 width)))
+        latex-width width))
+     ((string-match "\\([0-9]\\.?[0-9]*\\)cm" width)
+      (setq org-width (* dpi (string-to-number (string-match 1 width)) 2.54)
+        latex-width width))
+     ((string-match "\\([0-9]*\\)" width)
+      (setq org-width (string-to-number width)
+        latex-width (/ org-width dpi))))
+    (when width
+      (insert (format "#+attr_latex: :width %sin %s\n" latex-width params))
+      (insert (format "#+attr_org: :width %s\n" org-width)))
+
+    (insert "#+caption: \n")
+    (insert (format "[[./%s]]\n" fname))
+    (forward-line -2)
+    (end-of-line)
+    (org-redisplay-inline-images)));yiddi:comment this line refresh image
+
+
+;; make it possible to insert from helm.
+(defun helm-insert-org-figure (target)
+  (jmax-insert-figure
+   (file-relative-name target)
+   (read-input "Width: ")
+   (read-input "Parameters: ")))
+
+
+(add-hook 'helm-find-files-before-init-hook
+          (lambda ()
+        (helm-add-action-to-source
+         "Insert as org-mode figure"
+         'helm-insert-org-figure
+         helm-source-find-files)))
+
+
+(defun jmax-insert-table (ncols tblname attributes);yiddi:add this function insert table with parameters
+  "Insert a table with NCOLS and named TBLNAME.
+If you enter ATTRIBUTES they are inserted as LaTeX attributes."
+  (interactive "nColumns: \nsName: \nsAttributes: ")
+  (when (not (string= "" tblname))
+    (insert (format "#+tblname: %s\n" tblname)))
+  (when (not (string= "" attributes))
+    (insert (format "#+attr_latex: %s\n" attributes)))
+  (insert "#+caption: \n")
+  (loop
+   initially (insert "|")
+   repeat ncols do (insert "  |" )
+   finally (insert "\n"))
+  (forward-line -2)
+  (end-of-line))
+
+ #+END_SRC
+ Link:   [[file:~/.spacemacs.d/init.el::values."]]
+ File:   /home/yiddi/.spacemacs.d/init.el
+** find the odd time occur by operator.xor                      :python:misc:
+#+BEGIN_SRC python
+# find the sole element in an array, which occur odd number times
+import operator
+arr = [1,2,3,2,3,1,20,20,20]
+print reduce(operator.xor, arr)
+#+END_SRC
+
+ Link:   [[file:~/Documents/Test/test.py::print%20reduce(operator.xor,%20arr)]]
+ File:   /home/yiddi/Documents/Test/test.py
+** BGD批量梯度下降 and SGD随机梯度下降 matlab code                       :ML:
+
+ #+BEGIN_SRC matlab
+clear all
+close all
+clc
+
+%% initialization
+% input x & y
+x1 = [1 3 2104];        y1 = 400;
+x2 = [1 3 1600];        y2 = 330;
+x3 = [1 3 2400];        y3 = 369;
+x4 = [1 2 1416];        y4 = 232;
+x5 = [1 4 3000];        y5 = 540;
+
+X = [x1;x2;x3;x4;x5];
+Y = [y1;y2;y3;y4;y5];
+
+N = 5;      % the number of sample
+
+% parameter
+theta_new = zeros(length(x1),1);
+
+% iteration number
+itn = 2e2;
+
+% tolerance
+tol = 1e-20;
+
+% learning rate(stepsize)
+alpha_BGD = 0.00000001;
+alpha_SGD = 0.0000001;
+%% main function
+
+i = 1;       %itn index
+theta_old = theta_new;
+error = 1.0;
+k = 1; % SGD sample index
+
+enenrgy = zeros(itn,1);
+
+option = input('Enter the case(number) you want: \n 1 -> BGD. \n 2 -> SGD.\n ' )
+
+while((i <= itn) && (error >= tol))
+
+    switch option
+
+        case 1
+            % BGD
+            sum_temp = 0;
+                for jj = 1:N
+                    sum_temp = sum_temp + ( Y(jj) - X(jj,:)*theta_old )*X(jj,:)';
+                end
+            theta_new = theta_old + alpha_BGD*sum_temp;
+
+        case 2
+            % SGD
+            theta_new = theta_old + alpha_SGD*( Y(k) - X(k,:)*theta_old )*X(k,:)';
+
+            if k == 5
+                k = 1;
+            else
+                k = k+1;
+            end
+
+       end
+
+
+    error = norm(X*theta_new-Y)^2;
+    theta_old = theta_new;
+
+    energy(i) = error;
+
+
+    i = i + 1;
+end
+
+figure,plot(1:length(energy),energy),title('error(energy)');
+itn = i-1
+theta = theta_new
+ #+END_SRC
+
+ Link:   [[file:~/Documents/org-notes/journal.org::*%E7%9F%A5%E4%B9%8E%E8%A7%A3%E7%AD%94%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E9%9D%A2%E8%AF%95][知乎解答数据挖掘面试]]
+ File:   /home/yiddi/Documents/org-notes/journal.org
+** download webpage content                                             :url:
+ #+BEGIN_SRC python
+import urllib2
+url_base = 'https://people.eecs.berkeley.edu/~jrs/61b/lec/'
+urlArr = []
+for i in range(40):
+    if i < 9:
+        urlArr.append(url_base + '0' + str(i+1))
+    else: urlArr.append(url_base + str(i+1))
+i = 39
+response = urllib2.urlopen(urlArr[i])
+webcontent = response.read()
+output = '** lec ' + str(i + 1) + '\n' + webcontent
+print output
+
+ #+END_SRC
+ Link:   [[file:~/Documents/org-notes/CS/DataStructure.org::geturl][geturl]]
+ File:   /home/yiddi/Documents/org-notes/CS/DataStructure.org
+** convert mp4 to mp3                                  :file:mp3:convert:mp4:
+ #+BEGIN_SRC python
+from os import listdir
+def convert2mp3 ():
+    mp4path = '/home/yiddi/Videos/youtube-wenzhao/'
+    # mp4path = '/media/yiddi/9C6C7BA46C7B783A/Movies/shuzhaiyehua/'
+    lines = [line[:-4] for line in listdir(mp4path)]
+    # [:-4] 怎么理解，就是前面都要，然后把':'号对准你要截取的位置，从后往前数就对了
+    # ‘n i h a o  . m p 4’
+    # [         :-4-3-2-1]
+    # = nihao
+    # print(lines)
+    for line in lines:
+        src_file = mp4path + line + '.mp4'
+        tgt_file = mp4path + line + '.mp3'
+        os.system('ffmpeg -i ' + src_file + ' -vn ' + tgt_file)
+        # print (line + ' -------------------------------------------DONE')
+
+convert2mp3()
+print('DONE: convet2mp3 finished')
+
+ #+END_SRC
+
+ #+RESULTS:
+
+ Link:   [[file:~/Worklap/test.py::print('DONE:%20convet2mp3%20finished')]]
+ File:   /home/yiddi/Worklap/test.py
+** circle and reverse by ~for~ and ~%~ :scala:
+ #+BEGIN_SRC scala
+     for(i <- 0 until data.length-1)
+       tmp(i) = data((i + front)% data.length)
+ #+END_SRC
+ Link:   [[file:e:/org-notes/CS/Language/scala/lec63.org::#+BEGIN_SRC%20scala%20for(i%20<-%200%20until%20data.length-1)%20tmp(i)%20=%20data((i%20+%20front)%25%20data.length)%20#+END_SRC%20%5B%5Bhttps://s9.postimg.cc/fch0suni7/screenshot_110.png%5D%5Bcircle%20and%20reverse%20by%20~for~%20and%20~%25~%5D%5D][Array based Queue]]
+ File:   e:/org-notes/CS/Language/scala/lec63.org
+* a python script to download lec-note automatically
+:LOG:
+开始设置自动执行，但貌似由于某些网页不遵循排序（找不到）会引发程序终止，
+后改为录制宏，手动更改每次 i 的值，以此观测并及时修正网页地址
+:END:
+
+#+NAME: geturl
+#+BEGIN_SRC python :results output
+import urllib2
+url_base = 'https://people.eecs.berkeley.edu/~jrs/61b/lec/'
+urlArr = []
+for i in range(40):
+    if i < 9:
+        urlArr.append(url_base + '0' + str(i+1))
+    else: urlArr.append(url_base + str(i+1))
+i = 39
+response = urllib2.urlopen(urlArr[i])
+webcontent = response.read()
+output = '** lec ' + str(i + 1) + '\n' + webcontent
+print output
+
+#+END_SRC
+
+#+RESULTS: geturl

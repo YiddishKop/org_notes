@@ -1,0 +1,52 @@
+ -*- coding: utf-8; mode: xub -*-
+ good
+
+
+Asian Punctuations:　、。！，： ?
+
+Matching Pairs «»‹›“”‘’〖〗【】「」『』〈〉《》〔〕
+
+Greek ΑΒΓΔ∇ ΕΖΗΘ ΙΚΛΜ ΝΞΟΠ ΡΣΤΥ ΦΧΨΩ αβγδ∂ εζηθ ικλμ νξοπ ρςστυ φχψω
+
+currency  ¤ $ ¢ € ₠ £ ¥
+
+common symbols © ® ™ ² ³ § ¶ † ‡ ※
+
+Bullet-like •◦ ‣ ✓ ●■◆ ○□◇ ★☆ ♠♣♥♦ ♤♧♡♢
+
+phonetic ᴁ ᴂ ᴈ
+
+Music ♩♪♫♬♭♮♯
+
+punctuation “” ‘’ ¿¡ ¶§ª - ‐ ‑ ‒ – — ― …
+
+àáâãäåæç èéêë ìíîï ðñòóôõö øùúûüýþÿ ÀÁÂÃÄÅ Ç ÈÉÊË ÌÍÎÏ ÐÑ ÒÓÔÕÖ ØÙÚÛÜÝÞß
+
+math ° ⌈⌉ ⌊⌋ ∏ ∑ ∫ ×÷ ⊕ ⊖ ⊗ ⊘ ⊙ ⊚ ⊛ ∙ ∘ ′ ″ ‴ ∼ ∂ √ ≔ × ⁱ ⁰ ¹ ² ³ ₀ ₁ ₂
+     π ∞ ± ∎ ⊥ ∝ ≈
+
+Logic & Set Theory ∀¬∧∨∃⊦∵∴∅∈∉⊂⊃⊆⊇⊄⋂⋃
+
+Relations ≠≤≥≮≯≫≪≈≡
+
+Sets ℕℤℚℝℂ
+
+Arrows ←→↑↓ ↔ ↖↗↙↘  ⇐⇒⇑⇓ ⇔⇗  ⇦⇨⇧⇩ ↞↠↟↡ ↺↻  ☞☜☝☟
+
+Computing ⌘ ⌥ ‸ ⇧ ⌤ ↑ ↓ → ← ⇞ ⇟ ↖ ↘ ⌫ ⌦ ⎋⏏ ↶↷ ◀▶▲▼ ◁▷△▽ ⇄ ⇤⇥ ↹ ↵↩⏎ ⌧ ⌨ ␣ ⌶ ⎗⎘⎙⎚ ⌚⌛ ✂✄ ✉✍
+
+digits ➀➁➂➃➄➅➆➇➈➉
+
+Cultural 卐卍✝✚✡☥⎈☭☪☮☺☹
+
+☯☰☱☲☳☴☵☶☷
+
+☠☢☣☤♲♳⌬♨♿ ☉☼☾☽ ♀♂ ♔♕♖ ♗♘♙ ♚♛ ♜♝♞♟
+
+dinbats ❦
+
+Emacs: Unicode Tutorial
+http://ergoemacs.org/emacs/emacs_n_unicode.html
+
+Unicode search
+http://xahlee.info/comp/unicode_index.html

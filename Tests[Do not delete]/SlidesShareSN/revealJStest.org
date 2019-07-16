@@ -1,0 +1,83 @@
+#+TITLE: 机器学习分享
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+EMAIL: yiddishkop@163.com
+#+OPTIONS: toc:nil author:nil date:nil num:nil reveal_global_footer:t reveal_global_header:t reveal_progress:t
+#+LANGUAGE: english
+#+REVEAL_MARGIN: 0.4
+# #+REVEAL_SLIDE_HEADER: 苏宁全产业会员中心
+# #+REVEAL_SLIDE_FOOTER: 苏宁全产业会员中心
+#+REVEAL_PLUGINS: (highlight)
+
+
+
+
+* 机器学习相关概念
+  # :PROPERTIES:
+  # :reveal_background: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546953959&di=11e83353992efa500e7424215ff168e7&imgtype=jpg&er=1&src=http%3A%2F%2Fsxsimg.xiaoyuanzhao.com%2F5A%2F77%2F5ADA829EE8E675286F0D6B9331869377.jpg
+  # :reveal_background_size: 200px
+  # :reveal_background_trans: slide
+  # :END:
+
+
+   |------------------+---------------------------------------------------|
+   | 机器学习及其别称 | 机器学习,人工智能,数据挖掘                        |
+   | 机器学习算法门类 | 传统机器学习,深度学习,强化学习,迁移学习           |
+   | 机器学习与数学   | 机器学习,统计学,线性代数                          |
+   | 机器学习与工程   | 机器学习,大数据,图像处理,自然语言处理(语音与文本) |
+
+* 实例理解机器学习
+** 场景１
+   - 肖总: 快过年了,今年架构组的各位表现的怎么样?
+   - 尹架: ... 都很好.
+   - 肖总: 给我个结果, 哪些好,哪些不好.
+
+
+
+** 以什么为标准进行评估
+
+   #+BEGIN_QUOTE
+   于是尹架想到了以每天工作时间作为参考, 对架构组进行评估.
+   #+END_QUOTE
+
+   | 架构 | avg_hr |
+   |------+--------|
+   | 尹   |   12.0 |
+   | 黄   |   10.0 |
+   | 陈   |    6.5 |
+   | 周   |   10.5 |
+   | 马   |    5.2 |
+   | 吴   |   11.0 |
+   | 袁   |    6.0 |
+
+   [[file:实例理解机器学习/screenshot_2019-01-02_00-20-19.png]]
+
+尹架有多种选择来画出
+
+[[file:实例理解机器学习/screenshot_2019-01-02_01-02-57.png]]
+
+假设尹架选择了这种
+
+[[file:实例理解机器学习/screenshot_2019-01-02_01-10-41.png]]
+
+也就是说:
+
+if working >=11.9: good; else bad.
+
+这就是一个最简单的 *分类模型*, 只是这个模型有一个问题, 好坏的标准也就是是由尹架决定的.
+
+** 场景 2
+
+   - 尹架: 分好了,肖总, 除了我, 都不行.
+   - 肖总: ...
+
+** 场景 １
+
+      | 架构 | avg_hr | proj/month | debugs | reward |
+      |------+--------+------------+--------+--------|
+      | 尹   |   12.0 |         10 |    100 |      5 |
+      | 黄   |   10.0 |          8 |     90 |      5 |
+      | 陈   |    6.5 |          8 |     90 |      4 |
+      | 周   |   10.5 |            |        |        |
+      | 马   |    5.2 |            |        |        |
+      | 吴   |   11.0 |            |        |        |
+      | 袁   |    6.0 |            |        |        |

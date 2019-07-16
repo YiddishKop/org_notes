@@ -1,0 +1,358 @@
+;; Connected to nREPL server - nrepl://localhost:46451
+;; CIDER 0.22.0snapshot (package: 20190607.2013), nREPL 0.6.0
+;; Clojure 1.10.0, Java 1.8.0_201
+;;     Docs: (doc function-name)
+;;           (find-doc part-of-name)
+;;   Source: (source function-name)
+;;  Javadoc: (javadoc java-object-or-class)
+;;     Exit: <C-c C-q>
+;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+;; ======================================================================
+;; If you’re new to CIDER it is highly recommended to go through its
+;; manual first. Type <M-x cider-view-manual> to view it.
+;; In case you’re seeing any warnings you should consult the manual’s
+;; "Troubleshooting" section.
+;;
+;; Here are few tips to get you started:
+;;
+;; * Press <C-h m> to see a list of the keybindings available (this
+;;   will work in every Emacs buffer)
+;; * Press <, ,> to quickly invoke some REPL command
+;; * Press <, s s> to switch between the REPL and a Clojure file
+;; * Press <M-x cider-find-var> to jump to the source of something (e.g. a var, a
+;;   Java method)
+;; * Press <, h h> to view the documentation for something (e.g.
+;;   a var, a Java method)
+;; * Enable ‘eldoc-mode’ to display function & method signatures in the minibuffer.
+;; * Print CIDER’s refcard and keep it close to your keyboard.
+;;
+;; CIDER is super customizable - try <M-x customize-group cider> to
+;; get a feel for this. If you’re thirsty for knowledge you should try
+;; <M-x cider-drink-a-sip>.
+;;
+;; If you think you’ve encountered a bug (or have some suggestions for
+;; improvements) use <M-x cider-report-bug> to report it.
+;;
+;; Above all else - don’t panic! In case of an emergency - procure
+;; some (hard) cider and enjoy it responsibly!
+;;
+;; You can remove this message with the <M-x cider-repl-clear-help-banner> command.
+;; You can disable it from appearing on start by setting
+;; ‘cider-repl-display-help-banner’ to nil.
+;; ======================================================================
+WARNING: CIDER 0.22.0-snapshot requires cider-nrepl 0.22.0-beta4, but you're currently using cider-nrepl 0.21.1. The version mismatch might break some functionality!
+         More information.
+clojure-noob.core> (loop [x 3]
+                     (println x)
+                     (if (< x 0)
+                       (recur (dec x))))
+3
+nil
+clojure-noob.core> (loop [x 100]
+                     (println x)
+                     (if (> x 0)
+                       (recur (dec x))))
+nil
+clojure-noob.core> ; loop recur 经常与 if 搭配,其中 if 作为终止判定条件出现
+clojure-noob.core> 
+clojure-noob.core> (def asym-hobbit-body-parts [{:name "head" :size 3}
+                                                {:name "left-eye" :size 1}
+                                                {:name "left-ear" :size 1}
+                                                {:name "mouth" :size 1}
+                                                {:name "nose" :size 1}
+                                                {:name "neck" :size 2}
+                                                {:name "left-shoulder" :size 3}
+                                                {:name "left-upper-arm" :size 3}
+                                                {:name "chest" :size 10}
+                                                {:name "back" :size 10}
+                                                {:name "left-forearm" :size 3}
+                                                {:name "abdomen" :size 6}
+                                                {:name "left-kidney" :size 1}
+                                                {:name "left-hand" :size 2}
+                                                {:name "left-knee" :size 2}
+                                                {:name "left-thigh" :size 4}
+                                                {:name "left-lower-leg" :size 3}
+                                                {:name "left-achilles" :size 1}
+                                                {:name "left-foot" :size 2}])
+#'clojure-noob.core/asym-hobbit-body-parts
+clojure-noob.core> 
+clojure-noob.core> (defn my-sym-parts
+                     [[head & tail]]
+                     (if (empty? tail)
+                       []
+                       (into (my-sym-parts tail) 
+                             (set [head
+                                   (clojure.string/replace 
+                                    (:name head)
+                                    #"^left-"
+                                    "right-")]))))
+#'clojure-noob.core/my-sym-parts
+clojure-noob.core> 
+clojure-noob.core> (my-sym-parts asym-hobbit-body-parts)
+["right-achilles"
+ {:name "left-achilles", :size 1}
+ {:name "left-lower-leg", :size 3}
+ "right-lower-leg"
+ {:name "left-thigh", :size 4}
+ "right-thigh"
+ "right-knee"
+ {:name "left-knee", :size 2}
+ {:name "left-hand", :size 2}
+ "right-hand"
+ "right-kidney"
+ {:name "left-kidney", :size 1}
+ "abdomen"
+ {:name "abdomen", :size 6}
+ "right-forearm"
+ {:name "left-forearm", :size 3}
+ "back"
+ {:name "back", :size 10}
+ "chest"
+ {:name "chest", :size 10}
+ "right-upper-arm"
+ {:name "left-upper-arm", :size 3}
+ {:name "left-shoulder", :size 3}
+ "right-shoulder"
+ "neck"
+ {:name "neck", :size 2}
+ {:name "nose", :size 1}
+ "nose"
+ "mouth"
+ {:name "mouth", :size 1}
+ {:name "left-ear", :size 1}
+ "right-ear"
+ {:name "left-eye", :size 1}
+ "right-eye"
+ {:name "head", :size 3}
+ "head"]
+clojure-noob.core> (defn my-sym-parts
+                     [[head & tail]]
+                     (if (empty? tail)
+                       []
+                       (into (my-sym-parts tail) 
+                             (set [head
+                                   {:name (clojure.string/replace 
+                                           (:name head)
+                                           #"^left-"
+                                           "right-")}]))))
+#'clojure-noob.core/my-sym-parts
+clojure-noob.core>
+(defn my-sym-parts
+                     [[head & tail]]
+                     (if (empty? tail)
+                       []
+                       (into (my-sym-parts tail) 
+                             (set [head
+                                   {:name (clojure.string/replace 
+                                           (:name head)
+                                           #"^left-"
+                                           "right-")
+                                    :size (:size head)}]))))
+#'clojure-noob.core/my-sym-parts
+clojure-noob.core> 
+clojure-noob.core> (my-sym-parts asym-hobbit-body-parts)
+[{:name "right-achilles", :size 1}
+ {:name "left-achilles", :size 1}
+ {:name "right-lower-leg", :size 3}
+ {:name "left-lower-leg", :size 3}
+ {:name "right-thigh", :size 4}
+ {:name "left-thigh", :size 4}
+ {:name "right-knee", :size 2}
+ {:name "left-knee", :size 2}
+ {:name "left-hand", :size 2}
+ {:name "right-hand", :size 2}
+ {:name "left-kidney", :size 1}
+ {:name "right-kidney", :size 1}
+ {:name "abdomen", :size 6}
+ {:name "left-forearm", :size 3}
+ {:name "right-forearm", :size 3}
+ {:name "back", :size 10}
+ {:name "chest", :size 10}
+ {:name "right-upper-arm", :size 3}
+ {:name "left-upper-arm", :size 3}
+ {:name "left-shoulder", :size 3}
+ {:name "right-shoulder", :size 3}
+ {:name "neck", :size 2}
+ {:name "nose", :size 1}
+ {:name "mouth", :size 1}
+ {:name "left-ear", :size 1}
+ {:name "right-ear", :size 1}
+ {:name "left-eye", :size 1}
+ {:name "right-eye", :size 1}
+ {:name "head", :size 3}]
+clojure-noob.core> (defn my-sym-parts2
+                     [asym-body-parts]
+                     (loop [remaining-asym-parts asym-body-parts
+                            final-body-parts []]
+                       (if (empty? remaining-asym-parts)
+                         final-body-parts
+                         (let [[part & remaning] remaining-asym-parts]
+                           (recur remaining
+                                  (into final-body-parts
+                                        (set [part (matching-part part)]))))))
+                     ; 使用 conj + 递归 设计程序会[逆向]
+                     ;)
+                     )
+Syntax error compiling at (clojure-noob:localhost:46451(clj)*:189:28).
+Unable to resolve symbol: remaining in this context
+clojure-noob.core> 
+clojure-noob.core> (def my-asym2
+                     [[parts]]
+                     (loop [asym-parts parts ; 如果不使用递归的调用, 这里需要拷贝一份函数的引用供 loop 使用
+                            final-parts []]
+                       (if (empty? asym-parts)
+                         final-parts
+                         (let [[head & tail] asym-parts] ; let 起到类似 scala 模式匹配的作用,仅仅是拆解集合
+                           (recur tail
+                                  (into final-parts
+                                        (set [head
+                                              {:name (clojure.string/replace (:name head) #"^left-" "right-")
+                                               :size (:size head)}])))))))
+Syntax error compiling def at (clojure-noob:localhost:46451(clj)*:198:20).
+Too many arguments to def
+clojure-noob.core> (defn my-asym2
+                     [[parts]]
+                     (loop [asym-parts parts ; 如果不使用递归的调用, 这里需要拷贝一份函数的引用供 loop 使用
+                            final-parts []]
+                       (if (empty? asym-parts)
+                         final-parts
+                         (let [[head & tail] asym-parts] ; let 起到类似 scala 模式匹配的作用,仅仅是拆解集合
+                           (recur tail
+                                  (into final-parts
+                                        (set [head
+                                              {:name (clojure.string/replace (:name head) #"^left-" "right-")
+                                               :size (:size head)}])))))))
+#'clojure-noob.core/my-asym2
+clojure-noob.core> 
+clojure-noob.core> (my-asym2 asym-hobbit-body-parts)
+Execution error (NullPointerException) at clojure-noob.core/my-asym2 (form-init6828836037717698138.clj:222).
+null
+clojure-noob.core> asym-hobbit-body-parts
+[{:name "head", :size 3}
+ {:name "left-eye", :size 1}
+ {:name "left-ear", :size 1}
+ {:name "mouth", :size 1}
+ {:name "nose", :size 1}
+ {:name "neck", :size 2}
+ {:name "left-shoulder", :size 3}
+ {:name "left-upper-arm", :size 3}
+ {:name "chest", :size 10}
+ {:name "back", :size 10}
+ {:name "left-forearm", :size 3}
+ {:name "abdomen", :size 6}
+ {:name "left-kidney", :size 1}
+ {:name "left-hand", :size 2}
+ {:name "left-knee", :size 2}
+ {:name "left-thigh", :size 4}
+ {:name "left-lower-leg", :size 3}
+ {:name "left-achilles", :size 1}
+ {:name "left-foot", :size 2}]
+clojure-noob.core> (my-asym2 asym-hobbit-body-parts)
+Execution error (NullPointerException) at clojure-noob.core/my-asym2 (form-init6828836037717698138.clj:222).
+null
+clojure-noob.core> (my-sym-parts2 asym-hobbit-body-parts)
+Execution error (IllegalStateException) at clojure-noob.core/eval17178 (form-init6828836037717698138.clj:252).
+Attempting to call unbound fn: #'clojure-noob.core/my-sym-parts2
+clojure-noob.core> (defn my-asym2
+                     [parts]
+                     (loop [asym-parts parts ; 如果不使用递归的调用, 这里需要拷贝一份函数的引用供 loop 使用
+                            final-parts []]
+                       (if (empty? asym-parts)
+                         final-parts
+                         (let [[head & tail] asym-parts] ; let 起到类似 scala 模式匹配的作用,仅仅是拆解集合
+                           (recur tail
+                                  (into final-parts
+                                        (set [head
+                                              {:name (clojure.string/replace (:name head) #"^left-" "right-")
+                                               :size (:size head)}])))))))
+#'clojure-noob.core/my-asym2
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (my-asym2 asym-hobbit-body-parts)
+[{:name "head", :size 3}
+ {:name "left-eye", :size 1}
+ {:name "right-eye", :size 1}
+ {:name "left-ear", :size 1}
+ {:name "right-ear", :size 1}
+ {:name "mouth", :size 1}
+ {:name "nose", :size 1}
+ {:name "neck", :size 2}
+ {:name "left-shoulder", :size 3}
+ {:name "right-shoulder", :size 3}
+ {:name "right-upper-arm", :size 3}
+ {:name "left-upper-arm", :size 3}
+ {:name "chest", :size 10}
+ {:name "back", :size 10}
+ {:name "left-forearm", :size 3}
+ {:name "right-forearm", :size 3}
+ {:name "abdomen", :size 6}
+ {:name "left-kidney", :size 1}
+ {:name "right-kidney", :size 1}
+ {:name "left-hand", :size 2}
+ {:name "right-hand", :size 2}
+ {:name "right-knee", :size 2}
+ {:name "left-knee", :size 2}
+ {:name "right-thigh", :size 4}
+ {:name "left-thigh", :size 4}
+ {:name "right-lower-leg", :size 3}
+ {:name "left-lower-leg", :size 3}
+ {:name "right-achilles", :size 1}
+ {:name "left-achilles", :size 1}
+ {:name "right-foot", :size 2}
+ {:name "left-foot", :size 2}]
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (defn my-asym
+                     [parts]
+                     (loop [asym-parts parts
+                            final-parts []]; 不断地把其中一个集合的元素经过某种处理转移到另一个集合中
+                       (if (empty? asym-parts); 通过 if 语句设置终止条件
+                         final-parts
+                         (let [[head $ tail] asym-parts] ; 拆解集合元素为递归做准备
+                           (recur tail        
+                                  (into final-parts ; 处理元素的步骤放在这个 recur 中, 并且将其与
+                                                    ; "放置到另一个集合"的步骤捆绑到一起了.
+                                        (set head   ; set 存在的目的是为了去重那些不含 "left-" 的部分
+                                             {:name (clojure.string/replace (:name head) #"^left-" "right-") 
+                                              :size (:size head)})
+                                        ))))))
+#'clojure-noob.core/my-asym
+clojure-noob.core> 
+clojure-noob.core> (my-asym asym-hobbit-body-parts)
+Execution error (ArityException) at clojure-noob.core/my-asym (form-init6828836037717698138.clj:314).
+Wrong number of args (2) passed to: clojure.core/set
+clojure-noob.core> 
+clojure-noob.core> (reduce + [1 2 3])
+6
+clojure-noob.core> (reduce + 1 [1 2 3])
+7
+clojure-noob.core> ; ([A], [A] -> A), A, [A] -> A
+clojure-noob.core> ; ([A], [A] -> A), [A] -> A
+clojure-noob.core> 
+clojure-noob.core> (defn my-reduce
+                     ([func item col]
+                      (loop [temp-col col
+                             final-item item]
+                        (if (empty? temp-col)
+                          final-item
+                          (let [[head & tail] temp-col]
+                            (recur tail
+                                   (func final-item head))))))
+                     ([func col]
+                      (my-reduce func 0 col)))
+#'clojure-noob.core/my-reduce
+clojure-noob.core> 
+clojure-noob.core> (my-reduce + [1 2 3])
+6
+clojure-noob.core> (my-reduce + [])
+0
+clojure-noob.core> (my-reduce + 1 [1 2 3])
+7
+clojure-noob.core> ; 可以发现 reduce = loop-if-let-recur 组合
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (reduce + [1 2 3])
+
+
+
+*** Closed on Sun Jun 23 14:12:00 2019 ***

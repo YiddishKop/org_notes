@@ -1,0 +1,527 @@
+;; Connected to nREPL server - nrepl://localhost:33895
+;; CIDER 0.22.0snapshot (package: 20190607.2013), nREPL 0.6.0
+;; Clojure 1.10.0, Java 1.8.0_201
+;;     Docs: (doc function-name)
+;;           (find-doc part-of-name)
+;;   Source: (source function-name)
+;;  Javadoc: (javadoc java-object-or-class)
+;;     Exit: <C-c C-q>
+;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+;; ======================================================================
+;; If you’re new to CIDER it is highly recommended to go through its
+;; manual first. Type <M-x cider-view-manual> to view it.
+;; In case you’re seeing any warnings you should consult the manual’s
+;; "Troubleshooting" section.
+;;
+;; Here are few tips to get you started:
+;;
+;; * Press <C-h m> to see a list of the keybindings available (this
+;;   will work in every Emacs buffer)
+;; * Press <, ,> to quickly invoke some REPL command
+;; * Press <, s s> to switch between the REPL and a Clojure file
+;; * Press <M-x cider-find-var> to jump to the source of something (e.g. a var, a
+;;   Java method)
+;; * Press <, h h> to view the documentation for something (e.g.
+;;   a var, a Java method)
+;; * Enable ‘eldoc-mode’ to display function & method signatures in the minibuffer.
+;; * Print CIDER’s refcard and keep it close to your keyboard.
+;;
+;; CIDER is super customizable - try <M-x customize-group cider> to
+;; get a feel for this. If you’re thirsty for knowledge you should try
+;; <M-x cider-drink-a-sip>.
+;;
+;; If you think you’ve encountered a bug (or have some suggestions for
+;; improvements) use <M-x cider-report-bug> to report it.
+;;
+;; Above all else - don’t panic! In case of an emergency - procure
+;; some (hard) cider and enjoy it responsibly!
+;;
+;; You can remove this message with the <M-x cider-repl-clear-help-banner> command.
+;; You can disable it from appearing on start by setting
+;; ‘cider-repl-display-help-banner’ to nil.
+;; ======================================================================
+WARNING: CIDER 0.22.0-snapshot requires cider-nrepl 0.22.0-beta4, but you're currently using cider-nrepl 0.21.1. The version mismatch might break some functionality!
+         More information.
+clojure-noob.core> ;; Programming to Abstraction
+clojure-noob.core> ;; ==========================
+clojure-noob.core> ;; Clojure defines map and reduce functions in terms of the
+                   ;; sequence abstraction, not in terms of specific data
+                   ;; structures, so he can apply reduce on a map, but elisp
+clojure-noob.core> ;; can not.
+clojure-noob.core> ;; As long as a data structure responds to the core sequence
+                   ;; operations (the functions first, rest, and cons, which
+                   ;; we’ll look at more closely in a moment), it will work
+                   ;; with map, reduce, and oodles of other sequence functions
+                   ;; for free. This is what Clojurists mean by [programming to
+                   ;; abstractions], and it’s a central tenet of Clojure
+                   ;; philosophy.
+clojure-noob.core> 
+clojure-noob.core> ;; I think of abstractions as named collections of
+                   ;; operations. If you can perform all of an abstraction’s
+                   ;; operations on an object, then that object is an instance
+                   ;; of the abstraction.
+clojure-noob.core> 
+clojure-noob.core> ;; Similarly, map doesn’t care about how lists, vectors,
+                   ;; sets, and maps are implemented. It only cares about
+                   ;; whether it can perform sequence operations on them.
+clojure-noob.core> 
+clojure-noob.core> ;; Treating Lists, Vectors, Sets, and Maps as Sequences
+
+clojure-noob.core> ;; ====================================================
+clojure-noob.core> 
+clojure-noob.core> ;; all Clojure asks is “can I first, rest, and cons it?” If
+                   ;; the answer is yes, you can use the seq library with that
+                   ;; data structure.
+clojure-noob.core> 
+clojure-noob.core> ;; Abstraction Through Indirection
+clojure-noob.core> ;; Indirection is something like the one name with multiple meanings.[多态,多义词]
+clojure-noob.core> ;; Note Clojure has two constructs for defining polymorphic
+                   ;; dispatch: [1]the host platform’s interface construct and
+                   ;; [2]platform-independent protocols.This will introduced in chap13.
+clojure-noob.core> 
+clojure-noob.core> (rest [1 2 3])
+(2 3)
+clojure-noob.core> (cons 3 [1 2])
+(3 1 2)
+clojure-noob.core> (conj [1 2] 3)
+[1 2 3]
+clojure-noob.core> (seq '(1 2 3))
+(1 2 3)
+clojure-noob.core> '(1 2 3)
+(1 2 3)
+clojure-noob.core> (seq [1 2 3])
+(1 2 3)
+clojure-noob.core> (seq #{1 2 3})
+(1 3 2)
+clojure-noob.core> (seq {:2 3})
+([:2 3])
+clojure-noob.core> (first [1 2 3])
+1
+clojure-noob.core> (rest [1 2 3])
+(2 3)
+clojure-noob.core> (cons 1 [1 2 3])
+(1 1 2 3)
+clojure-noob.core> (conj [1 2 3] 1)
+[1 2 3 1]
+clojure-noob.core> (second {:map 2 :name 3})
+[:name 3]
+clojure-noob.core> ;; First, seq always returns a value that looks and behaves
+                   ;; like a list; you’d call this value a sequence or seq.
+                   ;; Second, the seq of a map consists of two-element key-value
+                   ;; vectors.
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ;; convert a map to a seq
+clojure-noob.core> (seq {:name 2 :size 3 :age 4})
+([:name 2] [:size 3] [:age 4])
+clojure-noob.core> ;; convert a seq to a map
+clojure-noob.core> 
+clojure-noob.core> (into {} (seq {:name 2 :age 3}))
+{:name 2, :age 3}
+clojure-noob.core> (map str [1 2 3] ["a" "b" "c"])
+("1a" "2b" "3c")
+clojure-noob.core> (list [1 2 3])
+([1 2 3])
+clojure-noob.core> (vector '(1 2 3))
+[(1 2 3)]
+clojure-noob.core> (vector 1 2 3)
+[1 2 3]
+clojure-noob.core> (list 1 2 3)
+(1 2 3)
+clojure-noob.core> (set 1 2 3)
+Execution error (ArityException) at clojure-noob.core/eval15872 (form-init3419884514051079983.clj:131).
+Wrong number of args (3) passed to: clojure.core/set
+clojure-noob.core> (set [1 2 3])
+#{1 3 2}
+clojure-noob.core> (list 1 2 3)
+(1 2 3)
+clojure-noob.core> (map str ["A" "b" "c"] [1 2 3] [4 5 6] [4 2 1])
+("A144" "b252" "c361")
+clojure-noob.core> (def human-consumption [8.1 7.3 6.6 5.0])
+#'clojure-noob.core/human-consumption
+clojure-noob.core> (def critter-consumption [0.0 0.2 0.3 1.1])
+#'clojure-noob.core/critter-consumption
+clojure-noob.core> 
+clojure-noob.core> ; using map to combine the two vectors in one map
+clojure-noob.core> ; (map func vector-arg-1 vector-arg-2)
+clojure-noob.core> 
+clojure-noob.core> (map #({:human %1 :critter %2}) human-consumption critter-consumption)
+Error printing return value (ArityException) at clojure.lang.AFn/throwArity (AFn.java:429).
+Wrong number of args (0) passed to: clojure.lang.PersistentArrayMap
+clojure-noob.core> (map (fn [human critter] {:human human :critter critter}) human-consumption critter-consumption)
+({:human 8.1, :critter 0.0}
+ {:human 7.3, :critter 0.2}
+ {:human 6.6, :critter 0.3}
+ {:human 5.0, :critter 1.1})
+clojure-noob.core> (reduce #(str %1 %2) 1 [1 2 3])
+"1123"
+clojure-noob.core> (doc hash-map)
+-------------------------
+clojure.core/hash-map
+([] [& keyvals])
+  keyval => key val
+  Returns a new hash map with supplied mappings.  If any keys are
+  equal, they are handled as if by repeated uses of assoc.
+nil
+clojure-noob.core> (hash-map :name 3)
+{:name 3}
+clojure-noob.core> (hash-map :name 3 :size 32)
+{:name 3, :size 32}
+clojure-noob.core> (map #(hash-map :human %1 :critter %2) [1 2 3] [4 5 6])
+({:human 1, :critter 4} {:human 2, :critter 5} {:human 3, :critter 6})
+clojure-noob.core> ; 可以看到, 这里 #() 里面必须要是一个函数, 也就是完全把这个括号就当成[函数调用的那个括号]来理解.
+clojure-noob.core> ; 如此一来也就是说, literal representation 是没法使用在这种 compact way of anonymous
+clojure-noob.core> ; function 中的.
+clojure-noob.core> 
+clojure-noob.core> ; 不仅仅可以给 map 传递 a vector of object, number, 也可以传递 a vector of functions
+clojure-noob.core> 
+clojure-noob.core> (def sum #(reduce + %))
+#'clojure-noob.core/sum
+clojure-noob.core> 
+clojure-noob.core> sum
+#function[clojure-noob.core/sum]
+clojure-noob.core> (def avg #(/ (sum %) (count %)))
+#'clojure-noob.core/avg
+clojure-noob.core> avg
+#function[clojure-noob.core/avg]
+clojure-noob.core> (avg 1 2)
+Execution error (ArityException) at clojure-noob.core/eval17251 (form-init3419884514051079983.clj:187).
+Wrong number of args (2) passed to: clojure-noob.core/avg
+clojure-noob.core> (avg [1 2 3])
+2
+clojure-noob.core> (sum [1 2 3])
+6
+clojure-noob.core> (count [1 2 3])
+3
+clojure-noob.core> 
+clojure-noob.core> (sum [1 2 3])
+6
+clojure-noob.core> ; vector of int -> (vec of int -> int)
+clojure-noob.core> 
+clojure-noob.core> (defn sum-fn
+                     [lst]
+                     #(reduce + %))
+#'clojure-noob.core/sum-fn
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (sum-fn [3 3 3])
+#function[clojure-noob.core/sum-fn/fn--17263]
+clojure-noob.core> ((sum-fn [3 3 3]))
+Execution error (ArityException) at clojure-noob.core/eval17268 (form-init3419884514051079983.clj:209).
+Wrong number of args (0) passed to: clojure-noob.core/sum-fn/fn--17263
+clojure-noob.core> ((sum-fn [3 3 3]) [3 3 3])
+9
+clojure-noob.core> (defn stats
+                     [numbers]
+                     (map #(% numbers) [sum count avg]))
+#'clojure-noob.core/stats
+clojure-noob.core> (defn stats
+                     [numbers]
+                     (map f(% numbers) [sum count avg]))
+Syntax error compiling at (clojure-noob:localhost:33895(clj)*:220:22).
+Unable to resolve symbol: f in this context
+clojure-noob.core> (defn stats
+                     [numbers]
+                     (map #(% numbers) [sum count avg]))
+#'clojure-noob.core/stats
+clojure-noob.core> 
+clojure-noob.core> (stats [ 1  2 3 ])
+(6 3 2)
+clojure-noob.core> (stats [4 5 6])
+(15 3 5)
+clojure-noob.core> (stats [1 90 2 4 6])
+(103 5 103/5)
+clojure-noob.core> ;; (map func vect1 vect2 ...) 是一个很神奇的函数, 因为 vect1 vect2 可以作为
+clojure-noob.core> ;; func 的第一个参数,第二个参数, 而且这个参数还可以是函数. 这样可以把函数集合起来
+clojure-noob.core> ;; 用来对一个数据集同时进行多种操作.
+clojure-noob.core> 
+clojure-noob.core> ;; 例如统计一个数据集的平均数/和/个数, 这就是典型的对一个数据集应用多种函数的例子
+clojure-noob.core> ;; 可以交由 map 来进行一次性处理.
+clojure-noob.core> 
+clojure-noob.core> ;;         /  f  ---> f(list)  
+clojure-noob.core> ;;         |  g  ---> g(list)
+clojure-noob.core> ;; list -->|  h  ---> h(list)
+clojure-noob.core> ;;         |  r  ---> t(list)
+clojure-noob.core> ;;         \  t  ---> t(list)
+clojure-noob.core> 
+clojure-noob.core> ;; 什么样的函数可以一次处理上面这种结构. 答案是  map
+clojure-noob.core> ;; 
+clojure-noob.core> 
+clojure-noob.core> (defn fn-2
+                     [x y]
+                     (+ x y))
+#'clojure-noob.core/fn-2
+clojure-noob.core> 
+clojure-noob.core> (defn fn-3
+                     [z]
+                     #(fn-2 % z))
+#'clojure-noob.core/fn-3
+clojure-noob.core> fn-3
+#function[clojure-noob.core/fn-3]
+clojure-noob.core> stats
+#function[clojure-noob.core/stats]
+clojure-noob.core> (fn-3 3)
+#function[clojure-noob.core/fn-3/fn--17291]
+clojure-noob.core> ((fn-3 3) 4)
+7
+clojure-noob.core> (stats [1 2 3])
+(6 3 2)
+clojure-noob.core> (defn add1
+                     [x]
+                     #(+ x %))
+#'clojure-noob.core/add1
+clojure-noob.core> (add1 3)
+#function[clojure-noob.core/add1/fn--17302]
+clojure-noob.core> (map (fn [x] [1 2 3]) [sum count avg])
+([1 2 3] [1 2 3] [1 2 3])
+clojure-noob.core> (defn stats
+                     [nums]
+                     (map #(% nums) [sum avg count]))
+#'clojure-noob.core/stats
+clojure-noob.core> 
+clojure-noob.core> (stats [1 2 3])
+(6 2 3)
+clojure-noob.core> ;; 由此课件, map 中的函数参数不是接受后面的列表参数作为参数, 而是为其提供占位符的概念.
+clojure-noob.core> ;; 很明显如上面 stats 函数中的 map 的函数 #(% nums) 是一个单参数函数, 但是为其提供
+clojure-noob.core> ;; 参数的却是内部变量, 换言之可以认为是固定的, 而真正的变量是函数名, 也就是 % 表示的
+clojure-noob.core> ;; sum avg count. 
+clojure-noob.core> 
+clojure-noob.core> ;; 所以 compact way of anonymous function 就很有意思了, 在这种表达方式下, 函数名
+clojure-noob.core> ;; 也可以作为参数传递给他.
+clojure-noob.core> 
+clojure-noob.core> (defn stats
+                     [nums]
+                     (map (fn [func] (func nums)) [sum avg count]))
+#'clojure-noob.core/stats
+clojure-noob.core> 
+clojure-noob.core> (stats [1 2 3])
+(6 2 3)
+clojure-noob.core> (defn stats
+                     [funcs]
+                     (map #(funcs %) [1 2 3]))
+#'clojure-noob.core/stats
+clojure-noob.core> (stats [sum avg count])
+Error printing return value (IndexOutOfBoundsException) at clojure.lang.PersistentVector/arrayFor (PersistentVector.java:158).
+null
+clojure-noob.core> (stats sum)
+Error printing return value (IllegalArgumentException) at clojure.lang.RT/seqFrom (RT.java:553).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (sum 1)
+Execution error (IllegalArgumentException) at clojure-noob.core/sum (form-init3419884514051079983.clj:178).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (defn stats
+                     [nums]
+                     (map #(% nums) [avg sum count]))
+#'clojure-noob.core/stats
+clojure-noob.core> 
+clojure-noob.core> (stats [1 2 3 4])
+(5/2 10 4)
+clojure-noob.core> ; vector of num -> num
+clojure-noob.core> (defn stats
+                     [nums]
+                     (map #(% nums) ; 这里的意思是接受的参数是一个函数, 是参数类型决定其在表达式中的位置
+                          [sum avg count]))
+#'clojure-noob.core/stats
+clojure-noob.core> 
+clojure-noob.core> (stats [ 1 2 34])
+(37 37/3 3)
+clojure-noob.core> (defn stats
+                     [nums]
+                     (map #(% nums) [sum avg count])); 所以 map 的核心功能是为第二个参数提供一种遍历捆绑机制.
+#'clojure-noob.core/stats
+clojure-noob.core> ; 其中 map 的遍历机制是自身提供的, 捆绑就看第二个参数函数的参数是什么类型.
+clojure-noob.core> 
+clojure-noob.core> (defn stats
+                     [nums]
+                     (map #(% nums) [count avg sum]))
+#'clojure-noob.core/stats
+clojure-noob.core> 
+clojure-noob.core> (stats [1 2 3])
+(3 2 6)
+clojure-noob.core> (def maps [{:name 1 :size 2} {:name 2 :size 3} {:name 3 :size 4}])
+#'clojure-noob.core/maps
+clojure-noob.core> 
+clojure-noob.core> (map (:name) maps)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17360 (form-init3419884514051079983.clj:344).
+Wrong number of args passed to keyword: :name
+clojure-noob.core> (map :name maps)
+(1 2 3)
+clojure-noob.core> (map :name maps)
+(1 2 3)
+clojure-noob.core> (map :size maps)
+(2 3 4)
+clojure-noob.core> (seq [1 2 3])
+(1 2 3)
+clojure-noob.core> ;; map 的核心功能是为第一个参数函数提供一种[遍历 + 捆绑]的机
+                   ;; 制, 其中遍历是 map 自身的功能, 捆绑需要看该参数函数的参数
+                   ;; 类型, 如果是函数类型则该(map的)函数型为: #(% xx); 如果是普
+                   ;; 通数据类型则该(map的)函数型为: #(xx %).
+clojure-noob.core> 
+clojure-noob.core> ;;==================================================
+clojure-noob.core> 
+clojure-noob.core> ;; Reduce
+clojure-noob.core> ;; ======
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> maps
+[{:name 1, :size 2} {:name 2, :size 3} {:name 3, :size 4}]
+clojure-noob.core> ;; (1) reduce can update the maps with same keys but different values.
+clojure-noob.core> 
+clojure-noob.core> (reduce + [1 2 3])
+6
+clojure-noob.core> (reduce :name maps)
+{:name 3, :size 4}
+clojure-noob.core> (reduce + [1 2 3])
+6
+clojure-noob.core> ;; reduce = loop if let recur
+clojure-noob.core> 
+clojure-noob.core> (recue #(+ (:name %) 2) maps)
+Syntax error compiling at (clojure-noob:localhost:33895(clj)*:378:20).
+Unable to resolve symbol: recue in this context
+clojure-noob.core> (reduce #(+ (:name %) 2) maps)
+Execution error (ArityException) at clojure-noob.core/eval17381 (form-init3419884514051079983.clj:381).
+Wrong number of args (2) passed to: clojure-noob.core/eval17381/fn--17382
+clojure-noob.core> (doc assoc)
+-------------------------
+clojure.core/assoc
+([map key val] [map key val & kvs])
+  assoc[iate]. When applied to a map, returns a new map of the
+    same (hashed/sorted) type, that contains the mapping of key(s) to
+    val(s). When applied to a vector, returns a new vector that
+    contains val at index. Note - index must be <= (count vector).
+nil
+clojure-noob.core> (assoc maps :name 3)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17387 (form-init3419884514051079983.clj:393).
+Key must be integer
+clojure-noob.core> maps
+[{:name 1, :size 2} {:name 2, :size 3} {:name 3, :size 4}]
+clojure-noob.core> (assoc maps 1 3)
+[{:name 1, :size 2} 3 {:name 3, :size 4}]
+clojure-noob.core> (assoc maps 2 3)
+[{:name 1, :size 2} {:name 2, :size 3} 3]
+clojure-noob.core> (assoc maps 0 3)
+[3 {:name 2, :size 3} {:name 3, :size 4}]
+clojure-noob.core> (reduce (fn [new-map [key val]]
+                             (assoc new-map key (inc val)))
+                           {}
+                           {:max 30 :min 10})
+{:max 31, :min 11}
+clojure-noob.core> (doc reduce)
+-------------------------
+clojure.core/reduce
+([f coll] [f val coll])
+  f should be a function of 2 arguments. If val is not supplied,
+  returns the result of applying f to the first 2 items in coll, then
+  applying f to that result and the 3rd item, etc. If coll contains no
+  items, f must accept no arguments as well, and reduce returns the
+  result of calling f with no arguments.  If coll has only 1 item, it
+  is returned and f is not called.  If val is supplied, returns the
+  result of applying f to val and the first item in coll, then
+  applying f to that result and the 2nd item, etc. If coll contains no
+  items, returns val and f is not called.
+nil
+clojure-noob.core> (reduce + {} {})
+{}
+clojure-noob.core> (reduce + [1 2 2] [1 2 3])
+Execution error (ClassCastException) at clojure-noob.core/eval17407 (form-init3419884514051079983.clj:425).
+clojure.lang.PersistentVector cannot be cast to java.lang.Number
+clojure-noob.core> (reduce (fn [new-map [key val]]
+                             (assoc new-map key (inc val)))
+                           {:sdfsdf 3}
+                           {:max 30 :min 10})
+{:sdfsdf 3, :max 31, :min 11}
+clojure-noob.core> (reduce + 1 23)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17417 (form-init3419884514051079983.clj:433).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (assoc {} :max 40}
+Syntax error reading source at (REPL:436:38).
+Unmatched delimiter: }
+clojure-noob.core> (assoc {} :max 3)
+{:max 3}
+clojure-noob.core> (assoc maps :size 4)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17421 (form-init3419884514051079983.clj:441).
+Key must be integer
+clojure-noob.core> maps
+[{:name 1, :size 2} {:name 2, :size 3} {:name 3, :size 4}]
+clojure-noob.core> (reduce (fn [new-map [key val]]
+                             (assoc new-map key (inc val)))
+                           {:max 3}
+                           {:max 30 :min 10})
+{:max 31, :min 11}
+clojure-noob.core> (reduce + {:size 1 :name 2} {:size 2 :name 3})
+Execution error (ClassCastException) at clojure-noob.core/eval17431 (form-init3419884514051079983.clj:451).
+clojure.lang.PersistentArrayMap cannot be cast to java.lang.Number
+clojure-noob.core> (reduce :size {:size 2} {:size 1})
+2
+clojure-noob.core> (reduce :size {:size 2} {:size 1} {:size4})
+Syntax error reading source at (REPL:456:62).
+Map literal must contain an even number of forms
+clojure-noob.core> (reduce :size {:size 2} {:size 1} {:size4} {:size 5})
+Syntax error reading source at (REPL:459:62).
+Map literal must contain an even number of forms
+clojure-noob.core> (reduce :size {:size 2} {:size 1} {:size 4} {:size 5})
+Execution error (ArityException) at clojure-noob.core/eval17435 (form-init3419884514051079983.clj:462).
+Wrong number of args (5) passed to: clojure.core/reduce
+clojure-noob.core> (reduce :size {:size 2} {:size 1} {:size 4})
+Execution error (ArityException) at clojure-noob.core/eval17437 (form-init3419884514051079983.clj:465).
+Wrong number of args (4) passed to: clojure.core/reduce
+clojure-noob.core> (reduce :size {:size 2} {:size 1})
+2
+clojure-noob.core> (doc reduce)
+-------------------------
+clojure.core/reduce
+([f coll] [f val coll])
+  f should be a function of 2 arguments. If val is not supplied,
+  returns the result of applying f to the first 2 items in coll, then
+  applying f to that result and the 3rd item, etc. If coll contains no
+  items, f must accept no arguments as well, and reduce returns the
+  result of calling f with no arguments.  If coll has only 1 item, it
+  is returned and f is not called.  If val is supplied, returns the
+  result of applying f to val and the first item in coll, then
+  applying f to that result and the 2nd item, etc. If coll contains no
+  items, returns val and f is not called.
+nil
+clojure-noob.core> (reduce :size {:size 2} {:name 3})
+2
+clojure-noob.core> (reduce :name {:size 2} {:name 3})
+[:name 3]
+clojure-noob.core> (reduce :size {:size 2} {:name 3})
+2
+clojure-noob.core> (reduce :cat {:cat 2} {:name 3})
+2
+clojure-noob.core> (map + [1 2 3] [4 5 6])
+(5 7 9)
+clojure-noob.core> (doc map)
+-------------------------
+clojure.core/map
+([f] [f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls])
+  Returns a lazy sequence consisting of the result of applying f to
+  the set of first items of each coll, followed by applying f to the
+  set of second items in each coll, until any one of the colls is
+  exhausted.  Any remaining items in other colls are ignored. Function
+  f should accept number-of-colls arguments. Returns a transducer when
+  no collection is provided.
+nil
+clojure-noob.core> (map +)
+#function[clojure.core/map/fn--5847]
+clojure-noob.core> (((map +) [1 2 3]) [4 5 6])
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17461 (form-init3419884514051079983.clj:507).
+Key must be integer
+clojure-noob.core> (((map +) 1
+                     )
+                    )
+Execution error (ClassCastException) at clojure-noob.core/eval17463 (form-init3419884514051079983.clj:510).
+java.lang.Long cannot be cast to clojure.lang.IFn
+clojure-noob.core> (map +)
+#function[clojure.core/map/fn--5847]
+clojure-noob.core> (map + [1 23 ])
+(1 23)
+clojure-noob.core> (map +) [1 23]
+#function[clojure.core/map/fn--5847][1 23]
+clojure-noob.core> ()(map +) [1 23])
+()#function[clojure.core/map/fn--5847][1 23]Syntax error reading source at (REPL:521:37).
+Unmatched delimiter: )
+clojure-noob.core> ((map +) [1 23])
+#function[clojure.core/map/fn--5847/fn--5848]
+clojure-noob.core> rerer
+

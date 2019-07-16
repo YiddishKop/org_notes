@@ -1,0 +1,799 @@
+;; Connected to nREPL server - nrepl://localhost:46743
+;; CIDER 0.22.0snapshot (package: 20190607.2013), nREPL 0.6.0
+;; Clojure 1.10.0, Java 1.8.0_201
+;;     Docs: (doc function-name)
+;;           (find-doc part-of-name)
+;;   Source: (source function-name)
+;;  Javadoc: (javadoc java-object-or-class)
+;;     Exit: <C-c C-q>
+;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+;; ======================================================================
+;; If you’re new to CIDER it is highly recommended to go through its
+;; manual first. Type <M-x cider-view-manual> to view it.
+;; In case you’re seeing any warnings you should consult the manual’s
+;; "Troubleshooting" section.
+;;
+;; Here are few tips to get you started:
+;;
+;; * Press <C-h m> to see a list of the keybindings available (this
+;;   will work in every Emacs buffer)
+;; * Press <, ,> to quickly invoke some REPL command
+;; * Press <, s s> to switch between the REPL and a Clojure file
+;; * Press <M-x cider-find-var> to jump to the source of something (e.g. a var, a
+;;   Java method)
+;; * Press <, h h> to view the documentation for something (e.g.
+;;   a var, a Java method)
+;; * Enable ‘eldoc-mode’ to display function & method signatures in the minibuffer.
+;; * Print CIDER’s refcard and keep it close to your keyboard.
+;;
+;; CIDER is super customizable - try <M-x customize-group cider> to
+;; get a feel for this. If you’re thirsty for knowledge you should try
+;; <M-x cider-drink-a-sip>.
+;;
+;; If you think you’ve encountered a bug (or have some suggestions for
+;; improvements) use <M-x cider-report-bug> to report it.
+;;
+;; Above all else - don’t panic! In case of an emergency - procure
+;; some (hard) cider and enjoy it responsibly!
+;;
+;; You can remove this message with the <M-x cider-repl-clear-help-banner> command.
+;; You can disable it from appearing on start by setting
+;; ‘cider-repl-display-help-banner’ to nil.
+;; ======================================================================
+WARNING: CIDER 0.22.0-snapshot requires cider-nrepl 0.22.0-beta4, but you're currently using cider-nrepl 0.21.1. The version mismatch might break some functionality!
+         More information.
+clojure-noob.core> (concat (take 8 (repeat "a")))
+("a" "a" "a" "a" "a" "a" "a" "a")
+clojure-noob.core> (take 8 (repeatedly #(rand-int 10)))
+(8 5 0 5 2 8 0 9)
+clojure-noob.core> (take 8 (repeatedly #(rand-int 10)))
+(3 7 5 9 4 3 9 6)
+clojure-noob.core> (take 8 (repeatedly #(rand-int 10)))
+(6 5 0 3 4 9 5 8)
+clojure-noob.core> (defn even-numbers
+                     ([] (even-numbers 0))
+                     ([n] (cons n (lazy-seq (even-numbers (+ n 2))))))
+#'clojure-noob.core/even-numbers
+clojure-noob.core> (take 1 (even-numbers))
+(0)
+clojure-noob.core> (take 2 (even-numbers))
+(0 2)
+clojure-noob.core> (take 22 (even-numbers))
+(0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42)
+clojure-noob.core> (take 22 (even-numbers 2))
+(2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44)
+clojure-noob.core> (take 22 (even-numbers 3))
+(3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45)
+clojure-noob.core> 
+clojure-noob.core> ;; 创建自己的 lazy-seq
+clojure-noob.core> 
+clojure-noob.core> (lazy-seq 1 2 3)
+Error printing return value (IllegalArgumentException) at clojure.lang.RT/seqFrom (RT.java:553).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (lazy-seq [1 2 3])
+(1 2 3)
+clojure-noob.core> (defn even-numbers
+                     ([] ())
+                     ([n] (cons n (lazy-seq (+ n 2)))))
+#'clojure-noob.core/even-numbers
+clojure-noob.core> (even-numbers)
+()
+clojure-noob.core> (even-numbers 0)
+(0Error printing return value (IllegalArgumentException) at clojure.lang.RT/seqFrom (RT.java:553).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (doc lazy-seq)
+-------------------------
+clojure.core/lazy-seq
+([& body])
+Macro
+  Takes a body of expressions that returns an ISeq or nil, and yields
+  a Seqable object that will invoke the body only the first time seq
+  is called, and will cache the result and return it on all subsequent
+  seq calls. See also - realized?
+nil
+clojure-noob.core> (lazy-seq 9)
+Error printing return value (IllegalArgumentException) at clojure.lang.RT/seqFrom (RT.java:553).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (lazy-seq [21 23])
+(21 23)
+clojure-noob.core> ;; int -> Iseq
+clojure-noob.core> 
+clojure-noob.core> (defn even-numbers
+                     ([] ())
+                     ([n] (cons n (lazy-seq (even-numbers (+ n 2))))))
+#'clojure-noob.core/even-numbers
+clojure-noob.core> 
+clojure-noob.core> (even-numbers 3)
+(3
+ 5
+ 7
+ 9
+ 58343
+clojure-noob.core> (cons 0 '(2  323 112))
+(0 2 323 112)
+clojure-noob.core> (defn even-numbers
+                     ([] (even-numbers 0))
+                     ([n] (cons n (lazy-seq (even-numbers (+ n 2))))))
+#'clojure-noob.core/even-numbers
+clojure-noob.core> 
+clojure-noob.core> (take 8 (even-numbers))
+(0 2 4 6 8 10 12 14)
+clojure-noob.core> (take 8 (even-numbers 23))
+(23 25 27 29 31 33 35 37)
+clojure-noob.core> (lazy-seq )
+()
+clojure-noob.core> (count {:name 1 :size 2})
+2
+clojure-noob.core> (count '(1 2 3))
+3
+clojure-noob.core> (empty? '(1 2 3))
+false
+clojure-noob.core> (empty? '())
+true
+clojure-noob.core> (every? '(1 2 3))
+Execution error (ArityException) at clojure-noob.core/eval17218 (form-init2004733530701632406.clj:133).
+Wrong number of args (1) passed to: clojure.core/every?
+clojure-noob.core> (doc every?)
+-------------------------
+clojure.core/every?
+([pred coll])
+  Returns true if (pred x) is logical true for every x in coll, else
+  false.
+nil
+clojure-noob.core> (every? #(> % 3) [1 2 3])
+false
+clojure-noob.core> (every? #(> % 3) [4 22 33])
+true
+clojure-noob.core> (map identity {:sunlight-reaction "Glitter"})
+([:sunlight-reaction "Glitter"])
+clojure-noob.core> (into {} (map identity {:sunlight-reaction "Glitter"}))
+{:sunlight-reaction "Glitter"}
+clojure-noob.core> (map #(str (:sunlight-reaction %) " hello")) {:sunlight-reaction "Glitter"})
+#function[clojure.core/map/fn--5847]{:sunlight-reaction "Glitter"}Syntax error reading source at (REPL:151:96).
+Unmatched delimiter: )
+clojure-noob.core> (map #(str (:sunlight-reaction %) " hello") {:sunlight-reaction "Glitter"}))
+(" hello")Syntax error reading source at (REPL:154:96).
+Unmatched delimiter: )
+clojure-noob.core> (map #(str (:sunlight-reaction %) " hello") {:sunlight-reaction "Glitter"})
+(" hello")
+clojure-noob.core> (map #({:size str (:sunlight-reaction %) " hello"}) {:sunlight-reaction "Glitter"})
+Error printing return value (ArityException) at clojure.lang.AFn/throwArity (AFn.java:429).
+Wrong number of args (0) passed to: clojure.lang.PersistentArrayMap
+clojure-noob.core> (map #({:size (str (:sunlight-reaction %) " hello"})) {:sunlight-reaction "Glitter"})
+Syntax error reading source at (REPL:162:71).
+Unmatched delimiter: }
+clojure-noob.core> (map #({:size (str (:sunlight-reaction %) " hello")}) {:sunlight-reaction "Glitter"})
+Error printing return value (ArityException) at clojure.lang.AFn/throwArity (AFn.java:429).
+Wrong number of args (0) passed to: clojure.lang.PersistentArrayMap
+clojure-noob.core> (map #({:size (str (:sunlight-reaction %) " hello")}) {:sunlight-reaction "Glitter"})
+Error printing return value (ArityException) at clojure.lang.AFn/throwArity (AFn.java:429).
+Wrong number of args (0) passed to: clojure.lang.PersistentArrayMap
+clojure-noob.core> (doc hash-map)
+-------------------------
+clojure.core/hash-map
+([] [& keyvals])
+  keyval => key val
+  Returns a new hash map with supplied mappings.  If any keys are
+  equal, they are handled as if by repeated uses of assoc.
+nil
+clojure-noob.core> (hash-map :name 2)
+{:name 2}
+clojure-noob.core> (map #(hash-map :size (str (:sunlight-reaction %) " hello")) {:sunlight-reaction "Glitter"})
+({:size " hello"})
+clojure-noob.core> (into {} (map #(hash-map :size (str (:sunlight-reaction %) " hello")) {:sunlight-reaction "Glitter"}))
+{:size " hello"}
+clojure-noob.core> (doc concat)
+-------------------------
+clojure.core/concat
+([] [x] [x y] [x y & zs])
+  Returns a lazy seq representing the concatenation of the elements in the supplied colls.
+nil
+clojure-noob.core> (concat {:size 3} {:num 3})
+([:size 3] [:num 3])
+clojure-noob.core> (into {} (concat {:size 3} {:num 4}))
+{:size 3, :num 4}
+clojure-noob.core> (into [0] 1)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17300 (form-init2004733530701632406.clj:195).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (into [0] [1])
+[0 1]
+clojure-noob.core> (cons 0 [1])
+(0 1)
+clojure-noob.core> (conj [0] 1)
+[0 1]
+clojure-noob.core> ;; define conj in terms of into
+clojure-noob.core> 
+clojure-noob.core> ;; [A], B -> [A, B]
+clojure-noob.core> 
+clojure-noob.core> (defn my-conj
+                     [lst item]
+                     (into lst [item]))
+#'clojure-noob.core/my-conj
+clojure-noob.core> 
+clojure-noob.core> (my-conj [1 23] 3)
+[1 23 3]
+clojure-noob.core> (defn my-conj
+                     [target & items]
+                     (into target items))
+#'clojure-noob.core/my-conj
+clojure-noob.core> 
+clojure-noob.core> (my-conj [1] 0)
+[1 0]
+clojure-noob.core> ;; Function Functions
+clojure-noob.core> ;; ==================
+clojure-noob.core> 
+clojure-noob.core> ;; apply
+clojure-noob.core> ;; =====
+clojure-noob.core> 
+clojure-noob.core> (max 1 2 3)
+3
+clojure-noob.core> (max 'a')
+a'
+clojure-noob.core> (max "a" "b" "c")
+Execution error (ClassCastException) at clojure-noob.core/eval17318 (form-init2004733530701632406.clj:232).
+java.lang.String cannot be cast to java.lang.Number
+clojure-noob.core> (max [1 23])
+[1 23]
+clojure-noob.core> (apply (max [1 23]))
+Execution error (ArityException) at clojure-noob.core/eval17322 (form-init2004733530701632406.clj:237).
+Wrong number of args (1) passed to: clojure.core/apply
+clojure-noob.core> (apply max [1 23])
+23
+clojure-noob.core> ;; exploding the elements of a collection so that they get
+                   ;; passed to a function as separate arguments
+clojure-noob.core> 
+clojure-noob.core> ;; 这句话很有意思,作为英文, 他把"从列表中拆出元素"这件事叫
+                   ;; 做 "exploding the elements of a collection", "独立的参数"
+                   ;; 翻译成 "as separate arguments"
+clojure-noob.core> 
+clojure-noob.core> ;; define conj in terms of into:
+clojure-noob.core> 
+clojure-noob.core> (defn my-conj
+                     [lst & items]
+                     (into lst items))
+#'clojure-noob.core/my-conj
+clojure-noob.core> 
+clojure-noob.core> ;; define into in terms of conj by apply:
+clojure-noob.core> 
+clojure-noob.core> (defn my-plus
+                     [lst1 lst2]
+                     (map + lst1 lst2))
+#'clojure-noob.core/my-plus
+clojure-noob.core> (my-plus [2 23 3] [23 1 0])
+(25 24 3)
+clojure-noob.core> (defn my-plus
+                     [head & tail]
+                     (+ head (my-plus tail)))
+#'clojure-noob.core/my-plus
+clojure-noob.core> (my-plus 1 2 3)
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:266).
+null
+clojure-noob.core> (defn my-plus
+                     [head & tail]
+                     (if (empty? (cons head tail))
+                       0
+                       (+ head (my-plus tail))))
+#'clojure-noob.core/my-plus
+clojure-noob.core> (my-plus [])
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:271).
+null
+clojure-noob.core> (my-plus [1])
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:273).
+null
+clojure-noob.core> (println "s")
+s
+nil
+clojure-noob.core> 
+clojure-noob.core> (my-plus 1 2 3)
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:273).
+null
+clojure-noob.core> my-plus
+#function[clojure-noob.core/my-plus]
+clojure-noob.core> (my-plus 1 2)
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:273).
+null
+clojure-noob.core> (my-plus 1)
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:273).
+null
+clojure-noob.core> (defn my-plus
+[head & tail]
+(do 
+(println head)
+(println tail)
+(if (empty? (cons head tail))
+0
+(+ head (my-plus tail)))
+))
+#'clojure-noob.core/my-plus
+clojure-noob.core> (my-plus 2)
+2
+Execution error (StackOverflowError) at nrepl.transport/stringify-keys (transport.clj:36).
+null
+nil
+clojure-noob.core> (cons nil nil)
+(nil)
+clojure-noob.core> (empty? (cons nil nil))
+false
+clojure-noob.core> (defn test-x
+                     [head & tail]
+                     (println head)
+                     (println tail))
+#'clojure-noob.core/test-x
+clojure-noob.core> (test-x 3 4 5)
+3
+(4 5)
+nil
+clojure-noob.core> (test-x )
+Execution error (ArityException) at clojure-noob.core/eval17356 (form-init2004733530701632406.clj:326).
+Wrong number of args (0) passed to: clojure-noob.core/test-x
+clojure-noob.core> (test-x 1)
+1
+nil
+nil
+clojure-noob.core> (defn test-x
+                     [head & tail]
+                     (println head)
+                     (println tail)
+                     (println (cons head tail)))
+#'clojure-noob.core/test-x
+clojure-noob.core> (test-x 1)
+1
+nil
+(1)
+nil
+clojure-noob.core> (defn test-x)
+Syntax error macroexpanding clojure.core/defn at (clojure-noob:localhost:46743(clj)*:344:20).
+() - failed: Insufficient input at: [:fn-tail] spec: :clojure.core.specs.alpha/defn-args
+clojure-noob.core> (defn test-x
+                     [tail]
+                     (let [[head & t] tail]
+                       (println head)
+                       (println t)))
+#'clojure-noob.core/test-x
+clojure-noob.core> (test-x 1)
+Execution error (IllegalArgumentException) at clojure-noob.core/test-x (form-init2004733530701632406.clj:349).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (defn test-x
+                     [& tail]
+                     (let [[head & t] tail]
+                       (println head)
+                       (println t)))
+#'clojure-noob.core/test-x
+clojure-noob.core> (test-x 1)
+1
+nil
+nil
+clojure-noob.core> (test-x )
+nil
+nil
+nil
+clojure-noob.core> (cons nil nil)
+(nil)
+clojure-noob.core> (defn my-plus
+                     [& items]
+                     (if (empty? items)
+                       0
+                       (+ (first items) (my-plus (rest items)))))
+#'clojure-noob.core/my-plus
+clojure-noob.core> (my-plus )
+0
+clojure-noob.core> (my-plus 1 3)
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:374).
+null
+clojure-noob.core> (empty? nil)
+true
+clojure-noob.core> (defn my-plus
+                     [& items]
+                     (if (empty? items)
+                       0
+                       (do (pringln (first items))
+                           (println (rest items))
+                           (+ (first items) (my-plus (rest items))))))
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:389:28).
+Unable to resolve symbol: pringln in this context
+clojure-noob.core> (defn my-plus
+                     [& items]
+                     (if (empty? items)
+                       0
+                       (do (pringtn (first items))
+                           (printtn (rest items))
+                           (+ (first items) (my-plus (rest items))))))
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:398:28).
+Unable to resolve symbol: pringtn in this context
+clojure-noob.core> (defn my-plus
+                     [& items]
+                     (()if (empty? items)
+                       0
+                       (do (println (first items))
+                           (println (rest items))
+                           (+ (first items) (my-plus (rest items))))))
+#'clojure-noob.core/my-plus
+clojure-noob.core> (my-plus 3)
+3
+Execution error (StackOverflowError) at nrepl.middleware.print$printing_transport$reify__850/send (print.clj:169).
+null
+clojure-noob.core> (empty? ())
+true
+clojure-noob.core> (defn my-plus
+                     [& items]
+                     (do (println items)
+                         (if (empty? items)
+                           0
+                           (do (println (first items))
+                               (println (rest items))
+                               (+ (first items) (my-plus (rest items)))))))
+#'clojure-noob.core/my-plus
+clojure-noob.core> (my-plus)
+nil
+0
+clojure-noob.core> (my-plus 1 3 4)
+(1 3 4)
+1
+(3 4)
+((3 4))
+(3 4)
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+Execution error (StackOverflowError) at clojure-noob.core/my-plus (form-init2004733530701632406.clj:419).
+null
+(Syntax error compiling at (core.clj:25:7).
+Unable to resolve symbol: items in this context
+
+clojure-noob.core>  (defn my-plus
+                      [& items]
+                      (do (println items)
+                          (if (empty? items)
+                            0
+                            (do (println (first items))
+                                (println (rest items))
+                                (+ (first items) (my-plus (rest items));; 时刻注意这里是否与要传入的参数类型相符合.
+                                                                       ;; 很明显这里不符合, 函数要求传入多个参数,
+                                                                       ;; 我这里只传入了一个列表参数, 这就造成整个程序
+                                                                       ;; 崩溃运行.不断的 nil.
+                                   )))))
+#'clojure-noob.core/my-plus
+clojure-noob.core> ;; 想要避免上面这种情况, 写函数之前写上你需要的类型, 写递归e
+                   ;; 部分的时候, 也注明这个返回值的类型即可.
+clojure-noob.core> 
+clojure-noob.core> (doc apply)
+-------------------------
+clojure.core/apply
+([f args] [f x args] [f x y args] [f x y z args] [f a b c d & args])
+  Applies fn f to the argument list formed by prepending intervening arguments to args.
+nil
+clojure-noob.core> (apply max 1 2 3)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17410 (form-init2004733530701632406.clj:472).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (apply max [1 2 3])
+3
+clojure-noob.core> (apply max (take 8 (lazy-seq (repeat 8))))
+8
+clojure-noob.core> (conj [2])
+[2]
+clojure-noob.core> (doc conj)
+-------------------------
+clojure.core/conj
+([coll x] [coll x & xs])
+  conj[oin]. Returns a new collection with the xs
+    'added'. (conj nil item) returns (item).  The 'addition' may
+    happen at different 'places' depending on the concrete type.
+nil
+clojure-noob.core> (apply conj [2] [1 2 3])
+[2 1 2 3]
+clojure-noob.core> (defn my-into
+                     [lst-to lst-from]
+                     (apply conj lst-to lst-from))
+#'clojure-noob.core/my-into
+clojure-noob.core> (my-into [12] [1 2 3])
+[12 1 2 3]
+clojure-noob.core> (def add10 (partial + 10))
+#'clojure-noob.core/add10
+clojure-noob.core> (add10 3)
+13
+clojure-noob.core> (def add-missing-elements
+                     (partial conj ["water" "earth" "air"]))
+#'clojure-noob.core/add-missing-elements
+clojure-noob.core> (add-missing-elements [1 2 3])
+["water" "earth" "air" [1 2 3]]
+clojure-noob.core> (add-missing-elements 1 2 3)
+["water" "earth" "air" 1 2 3]Syntax error compiling at (clojure-noob:localhost:46743(clj)*:511:5).
+Unable to resolve symbol: items in this context
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:513:5).
+Unable to resolve symbol: items in this context
+
+clojure-noob.core>  (defn my-plus
+                      [& items]
+                      (do (println items)
+                          (if (empty? items)
+                            0
+                            (do (println (first items))
+                                (println (rest items))
+                                (+ (first items) (my-plus (rest items));; 时刻注意这里是否与要传入的参数类型相符合.
+                                                                       ;; 很明显这里不符合, 函数要求传入多个参数,
+                                                                       ;; 我这里只传入了一个列表参数, 这就造成整个程序
+                                                                       ;; 崩溃运行.不断的 nil.
+                                   )))))
+#'clojure-noob.core/my-plusSyntax error (ClassNotFoundException) compiling at (clojure-noob:localhost:46743(clj)*:1:15205).
+clojure-noob.core>
+Syntax error (ClassNotFoundException) compiling at (clojure-noob:localhost:46743(clj)*:1:15205).
+clojure-noob.core>
+(1)
+1
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+nil
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(3)
+3
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+(())
+()
+()
+Execution error (NullPointerException) at java.util.regex.Matcher/getTextLength (Matcher.java:1283).
+null
+
+clojure-noob.core> (partial (+ 1))
+1
+clojure-noob.core> (def inc1 (partial (+ 1)))
+#'clojure-noob.core/inc1
+clojure-noob.core> (inc1 12)
+Execution error (ClassCastException) at clojure-noob.core/eval17727 (form-init2004733530701632406.clj:619).
+java.lang.Long cannot be cast to clojure.lang.IFn
+clojure-noob.core> (def inc1 (partial + 1))
+#'clojure-noob.core/inc1
+clojure-noob.core> (inc1 12)
+13
+clojure-noob.core> (doc apply)
+-------------------------
+clojure.core/apply
+([f args] [f x args] [f x y args] [f x y z args] [f a b c d & args])
+  Applies fn f to the argument list formed by prepending intervening arguments to args.
+nil
+clojure-noob.core> (apply inc [1 23 ])
+Execution error (ArityException) at clojure-noob.core/eval17733 (form-init2004733530701632406.clj:632).
+Wrong number of args (2) passed to: clojure.core/inc
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17735 (form-init2004733530701632406.clj:35).
+Don't know how to create ISeq from: java.lang.Long
+Execution error (ArityException) at clojure-noob.core/eval17737 (form-init2004733530701632406.clj:35).
+Wrong number of args (3) passed to: clojure.core/inc
+Syntax error compiling at (core.clj:42:2).
+Unable to resolve symbol: my-partial in this context
+Syntax error compiling at (core.clj:37:4).
+Unable to resolve symbol: func in this context
+Execution error (IllegalArgumentException) at clojure-noob.core/my-partial$fn (form-init2004733530701632406.clj:37).
+Don't know how to create ISeq from: java.lang.Long
+Execution error (IllegalArgumentException) at clojure-noob.core/my-partial$fn (form-init2004733530701632406.clj:37).
+Don't know how to create ISeq from: java.lang.Long
+Syntax error compiling at (core.clj:37:16).
+Unable to resolve symbol: &% in this context
+clojure-noob.core> (doc condp)
+-------------------------
+clojure.core/condp
+([pred expr & clauses])
+Macro
+  Takes a binary predicate, an expression, and a set of clauses.
+  Each clause can take the form of either:
+
+  test-expr result-expr
+
+  test-expr :>> result-fn
+
+  Note :>> is an ordinary keyword.
+
+  For each clause, (pred test-expr expr) is evaluated. If it returns
+  logical true, the clause is a match. If a binary clause matches, the
+  result-expr is returned, if a ternary clause matches, its result-fn,
+  which must be a unary function, is called with the result of the
+  predicate as its argument, the result of that call being the return
+  value of condp. A single default expression can follow the clauses,
+  and its value will be returned if no clause matches. If no default
+  expression is provided and no clause matches, an
+  IllegalArgumentException is thrown.
+nil
+clojure-noob.core> (condp = 3)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval17784 (form-init2004733530701632406.clj:673).
+No matching clause: 3
+clojure-noob.core> (condp = 3
+                     3 (println "hello 3"))
+hello 3
+nil
+clojure-noob.core> (condp = 3 4
+                     3 (println "hello 3"))
+hello 3
+nil
+clojure-noob.core> (condp = 3 4
+                     3 (println "hello 3")
+                     4 (println "hello 4"))
+hello 3
+hello 4
+nil
+clojure-noob.core> (condp = value
+                     1 "one"
+                     2 "two"
+                     3 "three"
+                     (str "unexpected value,\"" value \"))
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:690:20).
+Unable to resolve symbol: value in this context
+clojure-noob.core> (condp = value
+                     1 "one"
+                     2 "two"
+                     3 "three"
+                     (str "unexpected value," value ))
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:697:20).
+Unable to resolve symbol: value in this context
+clojure-noob.core> (condp = value
+                     1 "one"
+                     2 "two"
+                     3 "three"
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:704:20).
+Unable to resolve symbol: value in this context
+clojure-noob.core>  (condp = value
+                     1 "one"
+                     2 "two"
+                     3 "three")
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:710:21).
+Unable to resolve symbol: value in this context
+clojure-noob.core> (condp = v)
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:716:20).
+Unable to resolve symbol: v in this context
+clojure-noob.core> (let [v 3]
+                     (condp = v
+                       1 "one"
+                       2 "two"
+                       3 "three"
+                       (str "the expected value is: " value)))
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:724:24).
+Unable to resolve symbol: value in this context
+clojure-noob.core> (let [v 3]
+                     (condp = v
+                       1 "one"
+                       2 "two"
+                       3 "three"
+                       (str "the expected value is: " v)))
+"three"
+clojure-noob.core> (doc some)
+-------------------------
+clojure.core/some
+([pred coll])
+  Returns the first logical true value of (pred x) for any x in coll,
+  else nil.  One common idiom is to use a set as pred, for example
+  this will return :fred if :fred is in the sequence, otherwise nil:
+  (some #{:fred} coll)
+nil
+clojure-noob.core> (some #(= 0 %) [1 2 3])
+nil
+clojure-noob.core> (some #(= 0 %) [1 2 3 0])
+true
+clojure-noob.core> (defn good-man? (seq? [1 2 3]))
+Syntax error macroexpanding clojure.core/defn at (clojure-noob:localhost:46743(clj)*:747:20).
+seq? - failed: vector? at: [:fn-tail :arity-n :bodies :params] spec: :clojure.core.specs.alpha/param-list
+(seq? [1 2 3]) - failed: vector? at: [:fn-tail :arity-1 :params] spec: :clojure.core.specs.alpha/param-list
+clojure-noob.core> (defn good-man? (seq [1 2 3]))
+Syntax error macroexpanding clojure.core/defn at (clojure-noob:localhost:46743(clj)*:751:20).
+seq - failed: vector? at: [:fn-tail :arity-n :bodies :params] spec: :clojure.core.specs.alpha/param-list
+(seq [1 2 3]) - failed: vector? at: [:fn-tail :arity-1 :params] spec: :clojure.core.specs.alpha/param-list
+clojure-noob.core> (defn good-man? [] (seq? [1 2 3]))
+#'clojure-noob.core/good-man?
+clojure-noob.core> (good-man? 2)
+Execution error (ArityException) at clojure-noob.core/eval17840 (form-init2004733530701632406.clj:757).
+Wrong number of args (1) passed to: clojure-noob.core/good-man?
+clojure-noob.core> (good-man?)
+false
+clojure-noob.core> (complement good-man?)
+#function[clojure.core/complement/fn--5654]
+clojure-noob.core> ((complement good-man?))
+true
+clojure-noob.core> (good-man? 2)
+                   (good 2)
+                   (good 2)
+                   (good 2)
+                   (good 2)
+                   (good 2)
+                   (good 2)
+                   (good 2)
+Execution error (ArityException) at clojure-noob.core/eval17848 (form-init2004733530701632406.clj:766).
+Wrong number of args (1) passed to: clojure-noob.core/good-man?
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:767:20).
+Unable to resolve symbol: good in this context
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:768:20).
+Unable to resolve symbol: good in this context
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:769:20).
+Unable to resolve symbol: good in this context
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:770:20).
+Unable to resolve symbol: good in this context
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:771:20).
+Unable to resolve symbol: good in this context
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:772:20).
+Unable to resolve symbol: good in this context
+Syntax error compiling at (clojure-noob:localhost:46743(clj)*:773:20).
+Unable to resolve symbol: good in this context
+Syntax error compiling at (core.clj:88:20).
+Unable to resolve symbol: get-detial-record in this context
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 

@@ -1,0 +1,14 @@
+* KDE
+https://www.youtube.com/watch?v=PBZVTjmhl74
+
+
+https://www.youtube.com/watch?v=oxSxX1jbbPs
+
+
+
+
+#+DOWNLOADED: /tmp/screenshot.png @ 2018-06-20 17:04:07
+[[file:KDE/screenshot_2018-06-20_17-04-07.png]]
+
+Histogram: each element occur, will have a unit-rectange in its graph;
+KDE: each elements occur, will have a gaussian(normal) curve in its graph

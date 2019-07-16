@@ -1,0 +1,11 @@
+* grep
+https://www.linode.com/docs/tools-reference/tools/how-to-grep-for-text-in-files/
+
+grep + regex
+
+"-E" means the following string is a regrex
+
+#+name: get-pid
+#+BEGIN_SRC shell :results outputs
+ps -aux | grep "python" | grep -E "(lec4|tensorboard)" | grep -v "grep" | awk '{print $2}'
+#+END_SRC

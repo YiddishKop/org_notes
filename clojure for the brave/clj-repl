@@ -1,0 +1,5488 @@
+;; Connected to nREPL server - nrepl://localhost:33751
+;; CIDER 0.22.0snapshot (package: 20190607.2013), nREPL 0.6.0
+;; Clojure 1.10.0, Java 1.8.0_201
+;;     Docs: (doc function-name)
+;;           (find-doc part-of-name)
+;;   Source: (source function-name)
+;;  Javadoc: (javadoc java-object-or-class)
+;;     Exit: <C-c C-q>
+;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+;; ======================================================================
+;; If you’re new to CIDER it is highly recommended to go through its
+;; manual first. Type <M-x cider-view-manual> to view it.
+;; In case you’re seeing any warnings you should consult the manual’s
+;; "Troubleshooting" section.
+;;
+;; Here are few tips to get you started:
+;;
+;; * Press <C-h m> to see a list of the keybindings available (this
+;;   will work in every Emacs buffer)
+;; * Press <, ,> to quickly invoke some REPL command
+;; * Press <, s s> to switch between the REPL and a Clojure file
+;; * Press <M-x cider-find-var> to jump to the source of something (e.g. a var, a
+;;   Java method)
+;; * Press <, h h> to view the documentation for something (e.g.
+;;   a var, a Java method)
+;; * Enable ‘eldoc-mode’ to display function & method signatures in the minibuffer.
+;; * Print CIDER’s refcard and keep it close to your keyboard.
+;;
+;; CIDER is super customizable - try <M-x customize-group cider> to
+;; get a feel for this. If you’re thirsty for knowledge you should try
+;; <M-x cider-drink-a-sip>.
+;;
+;; If you think you’ve encountered a bug (or have some suggestions for
+;; improvements) use <M-x cider-report-bug> to report it.
+;;
+;; Above all else - don’t panic! In case of an emergency - procure
+;; some (hard) cider and enjoy it responsibly!
+;;
+;; You can remove this message with the <M-x cider-repl-clear-help-banner> command.
+;; You can disable it from appearing on start by setting
+;; ‘cider-repl-display-help-banner’ to nil.
+;; ======================================================================
+WARNING: CIDER 0.22.0-snapshot requires cider-nrepl 0.22.0-beta4, but you're currently using cider-nrepl 0.21.1. The version mismatch might break some functionality!
+         More information.
+clojure-noob.core> (map)
+Execution error (ArityException) at clojure-noob.core/eval12342 (form-init5698173910556762674.clj:45).
+Wrong number of args (0) passed to: clojure.core/map
+Cleanliness is next to godlines
+clojure-noob.core> (str "it was the panda" "in the library" "with a dust buster")
+"it was the pandain the librarywith a dust buster"
+clojure-noob.core> (if true
+                     "by zerus' hammer!"
+                     "by aquaman's trident")
+"by zerus' hammer!"
+clojure-noob.core> (if false
+                     "by one's elbow"
+                     )
+nil
+clojure-noob.core> (if true
+                     (do (println "success")
+                         "by zeus's hammer!")
+                     (do (println "Failure!")
+                         "By aquaman's trident!"))
+success
+"by zeus's hammer!"
+clojure-noob.core> ; when = if + do without else
+clojure-noob.core> (when true
+                     (println "success")
+                     "abra cadabra")
+success
+"abra cadabra"
+clojure-noob.core> ; the same with if + do, if condition equals to false, then return nil
+clojure-noob.core> true
+true
+clojure-noob.core> false
+false
+clojure-noob.core> nil
+nil
+clojure-noob.core> ; nil means no value
+clojure-noob.core> ;
+clojure-noob.core> ; check the value is or not a "nil", using nil?
+clojure-noob.core> (nil? 1)
+false
+clojure-noob.core> (nil? nil)
+true
+clojure-noob.core> ; only "nil" and "false" represent the logical falsiness, all other are logically truthy.
+clojure-noob.core> (if "hello"
+                     "hello is true"
+                     "hello is false")
+"hello is true"
+clojure-noob.core> (if nil
+                     "nil is true"
+                     "nil is false")
+"nil is false"
+clojure-noob.core> ; equality operator is "=" in clojure, which is not in python, java, c++, etc. 
+
+clojure-noob.core> (= 1 1)
+true
+clojure-noob.core> (= nil nil)
+true
+clojure-noob.core> (= 1 2)
+false
+clojure-noob.core> ; "or" and "and" are boolean operator. 
+clojure-noob.core> ; "or" returns the first truthy or the last value;
+clojure-noob.core> ; "and" returns the first falsey or the last value;
+clojure-noob.core> (or false nil :large_i_mean :why_cant_i_say)
+:large_i_mean
+clojure-noob.core> (or false nil (= 0 1) :Im_last)
+:Im_last
+clojure-noob.core> (and false nil (= 0 1) :Im_last)
+false
+clojure-noob.core> (and 1 2 3 4)
+4
+clojure-noob.core> (or nil nil nil)
+nil
+clojure-noob.core> (or nil nil false)
+false
+clojure-noob.core> ; Naming valuse with def
+clojure-noob.core> ; -----------------------
+clojure-noob.core> (def failed-protagonist-names
+                     ["larry potter" "doreen" "the incredible bulk"])
+#'clojure-noob.core/failed-protagonist-names
+clojure-noob.core> failed-protagonist-names
+["larry potter" "doreen" "the incredible bulk"]
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Try your best to avoid altering name/value association
+clojure-noob.core> 
+clojure-noob.core> (defn error-message
+                     [severity]
+                     (str "Oh god! it's a disaster! we're"
+                          (if (= serverity :mild)
+                            "mildly inconvenienced!"
+                            "dooooooomed!")))
+Syntax error compiling at (clj-repl:132:31).
+Unable to resolve symbol: serverity in this context
+clojure-noob.core> (defn error-message
+                     [severity]
+                     (str "Oh god! it's a disaster! we're"
+                          (if (= severity :mild)
+                            "mildly inconvenienced!"
+                            "dooooooomed!")))
+#'clojure-noob.core/error-message
+clojure-noob.core> (error-message :mild)
+"Oh god! it's a disaster! we'remildly inconvenienced!"
+clojure-noob.core> ; as shown above, you define a function named with "error-message", and
+clojure-noob.core> ; with one parameter wrapped by bracket "[]" named with "severity"
+clojure-noob.core> 
+clojure-noob.core> ; Data Structures
+clojure-noob.core> ; ---------------
+clojure-noob.core> ; All of clojure's data structure are immutable, meaning you can't change
+clojure-noob.core> ; them in place. And will be studided in chap 10;
+clojure-noob.core> 
+clojure-noob.core> ; Numbers
+clojure-noob.core> ; --------
+clojure-noob.core> 1
+1
+clojure-noob.core> 1.2
+1.2
+clojure-noob.core> 1/5
+1/5
+clojure-noob.core> 2e13
+2.0E13
+clojure-noob.core> 
+clojure-noob.core> ; Strings
+clojure-noob.core> ; --------
+clojure-noob.core> "load voldemort"
+"load voldemort"
+clojure-noob.core> "\"he who must be named\""
+"\"he who must be named\""
+clojure-noob.core> "\"great cow of moscow\" - hermes conrad"
+"\"great cow of moscow\" - hermes conrad"
+clojure-noob.core> ; clojure only allowed double quotes to delineate strings
+clojure-noob.core> ; clojure doesn't have string interpolation, only has string concatenation via "str" function
+clojure-noob.core> (str "hi" "yunalong")
+"hiyunalong"
+clojure-noob.core> ; Maps
+clojure-noob.core> ; ----
+clojure-noob.core> ; "Maps" are similar to dictionaries or hashes in other languages.
+clojure-noob.core> ; They're all just associate some value with some other value.
+clojure-noob.core> ; two kinds of maps in clojure aer hash maps and sorted maps
+clojure-noob.core> ; (1) hash maps
+clojure-noob.core> ; (2) sorted maps
+clojure-noob.core> {}
+{}
+clojure-noob.core> {:first-name "Charlie"}
+{:first-name "Charlie"}
+clojure-noob.core> {:first-name "Charlie" :last-name "McFishwich"}
+{:first-name "Charlie", :last-name "McFishwich"}
+clojure-noob.core> {"string-key" +}
+{"string-key" #function[clojure.core/+]}
+clojure-noob.core> ; maps can be nested
+clojure-noob.core> {:name {:first "john" :middle "Jacob" :last "jingwei"}}
+{:name {:first "john", :middle "Jacob", :last "jingwei"}}
+clojure-noob.core> ; beside using map literals, you can use the "hash-map" function to create a map:
+clojure-noob.core> {hash-map :a 1 :b 2}
+Syntax error reading source at (REPL:196:40).
+Map literal must contain an even number of forms
+clojure-noob.core> (hash-map :a 1 :b 2)
+{:b 2, :a 1}
+clojure-noob.core> (get {:a 1 :b 2} :b)
+2
+clojure-noob.core> (get {:a 0 :b {:c "ho hum"}} :b)
+{:c "ho hum"}
+clojure-noob.core> ; what's shown above is how to get the value from the key by "get" function
+clojure-noob.core> ; (get <map> <key-name> <default-value>)
+clojure-noob.core> (get {:a 1 :b 2} :c)
+nil
+clojure-noob.core> (get {:a 1 :b 2} :c "no-value")
+"no-value"
+clojure-noob.core> ; "get-in" function lets you look up values in nested maps
+clojure-noob.core> (get-in {:a 0 :b {:c "ho hum"}} [:b :c])
+"ho hum"
+clojure-noob.core> (get-in {:a 0 :b {:c "ho hum"}} [:c])
+nil
+clojure-noob.core> (get-in {:a {:c "ho yeap"} :b {:c "ho hum"}} [:b :c])
+"ho hum"
+clojure-noob.core> (get-in {:a {:c "ho yeap"} :b {:c "ho hum"}} [:a :c])
+"ho yeap"
+clojure-noob.core> ; another way to look up a value in a map is to treat the map like a function
+clojure-noob.core> ; with the key as its argument:
+clojure-noob.core> ({:name "the human coffeepot"} :name)
+"the human coffeepot"
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; keywords
+clojure-noob.core> ; --------
+clojure-noob.core> ; Here I start to know that what's ":a" this form represent.
+clojure-noob.core> :a
+:a
+clojure-noob.core> :rumplestilce
+:rumplestilce
+clojure-noob.core> :34
+:34
+clojure-noob.core> :_/
+Syntax error reading source at (REPL:235:1).
+Invalid token: :_/
+clojure-noob.core> :_?
+:_?
+clojure-noob.core> ; Keywords in clojure has different meanning with other languages.
+clojure-noob.core> ; it can be used as functions that look up the corresponding value
+clojure-noob.core> ; in a data structure.
+clojure-noob.core> (:a {:a 1 :b 2 :c 3})
+1
+clojure-noob.core> ; this equals to 
+clojure-noob.core> (get {:a 1 :b 2 :c 3} :a)
+1
+clojure-noob.core> ; You can provide a default value, as with get:
+clojure-noob.core> (:b {:a 1 :b 2 :c 3} "no gnome knows homes like noah knows")
+2
+clojure-noob.core> (:d {:a 1 :b 2 :c 3} "no gnome knows homes like noah knows")
+"no gnome knows homes like noah knows"
+clojure-noob.core> ;You can provide a default value, as with get:
+clojure-noob.core> (:d {:a 1 :b 2 :c 3} "No gonome knows homes like noah knows")
+"No gonome knows homes like noah knows"
+clojure-noob.core> 
+clojure-noob.core> ; Vectors
+clojure-noob.core> ; -------
+clojure-noob.core> ; A vector is similar to an array
+clojure-noob.core> [3 2 1]
+[3 2 1]
+clojure-noob.core> (get [3 2 1] 0)
+3
+clojure-noob.core> ; Vector can have elements with different type
+clojure-noob.core> (get ["a" 1 2 "c" {:name "pugsley winterbottom"}] 1)
+1
+clojure-noob.core> (get ["a" 1 2 "c" {:name "pugsley winterbottom"}] 2)
+2
+clojure-noob.core> (get ["a" 1 2 "c" {:name "pugsley winterbottom"}] 3)
+"c"
+clojure-noob.core> (get ["a" 1 2 "c" {:name "pugsley winterbottom"}] 4)
+{:name "pugsley winterbottom"}
+clojure-noob.core> (get ["a" 1 2 "c" {:name "pugsley winterbottom"}] 5)
+nil
+clojure-noob.core> (get ["a" 1 2 "c" {:name "pugsley winterbottom"}] 88)
+nil
+clojure-noob.core> ; "[]" = (vector ...)
+clojure-noob.core> ; "{}" = (hash-map ...)
+clojure-noob.core> ; "[]" and "{}" are all called literal expression.
+clojure-noob.core> (vector "creepy" "full" "moon")
+["creepy" "full" "moon"]
+clojure-noob.core> (conj [1 2 3] 4)
+[1 2 3 4]
+clojure-noob.core> ; using =conj= function to add additional element to tail of vector.
+clojure-noob.core> ; this is different from lisp code, which use =cons= function:
+clojure-noob.core> ; clojure: (conj <vector> <element>)
+clojure-noob.core> ; lisp   : (cons <element> <list>)
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Lists
+clojure-noob.core> ; -----
+clojure-noob.core> ; Similar to vectors, they are both linear collections;
+clojure-noob.core> ; Different in syntax:
+clojure-noob.core> ; vector: "[]"
+clojure-noob.core> ; list: "'()", with a quote in front of brace
+clojure-noob.core> '(1 2 3 4)
+(1 2 3 4)
+clojure-noob.core> ; Using the =nth= function to get the ith element of list
+clojure-noob.core> (nth '(1 2 3 4) 3)
+4
+clojure-noob.core> (nth '(1 "str" 2 [1 2 3]) 3)
+[1 2 3]
+clojure-noob.core> ; list are same with the vector, can have elements with different types.
+clojure-noob.core> ; it’s good to know that using nth to retrieve an element from a list is 
+clojure-noob.core> ; slower than using get to retrieve an element from a vector. 
+clojure-noob.core> ; speed(nth) < speed(get)
+clojure-noob.core> ;       ---          ---
+clojure-noob.core> ;       list         vector
+clojure-noob.core> 
+clojure-noob.core> ; This is because Clojure has to traverse all n elements of a list to 
+clojure-noob.core> ; get to the nth, whereas it only takes a few hops at most to access 
+clojure-noob.core> ; a vector element by its index.
+clojure-noob.core> 
+clojure-noob.core> ; also you can create a list with =list= function
+clojure-noob.core> (list 1 2 3 "two")
+(1 2 3 "two")
+clojure-noob.core> (conj '(1 2 3) 4)
+(4 1 2 3)
+clojure-noob.core> ; different from the =conj= function apply on vector, which add elment
+clojure-noob.core> ; at the end of a vector, when applying =conj= on list, it add element
+clojure-noob.core> ; at the fornt of it:
+clojure-noob.core> ; (conj [1 2 3] 4) => [1 2 3 4]
+clojure-noob.core> ; (conj '(1 2 3) 4) => (4 1 2 3)
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; A good rule of thumb is that when you want to add sth at the beginning
+clojure-noob.core> ; of a collection or write some macros, use list; otherwise use vector.
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Sets
+clojure-noob.core> ; ----
+clojure-noob.core> ; Set are collections of unique values.
+clojure-noob.core> ; clojure has 2 kinds of sets:
+clojure-noob.core> ; (1) hash set
+clojure-noob.core> ; (2) sortes set
+clojure-noob.core> ; 
+clojure-noob.core> ; a little similar with maps, clojure has 2 kinds of map:
+clojure-noob.core> ; (1) hash map
+clojure-noob.core> ; (2) sorted map
+clojure-noob.core> 
+clojure-noob.core> ; literal notation for a hash set:
+clojure-noob.core> ; #{"kkkk" 20 :icicle}
+clojure-noob.core> #{1 2 3}
+#{1 3 2}
+clojure-noob.core> (hash-set 22 11 22 11)
+#{22 11}
+clojure-noob.core> ; =conj= applying on sets:
+clojure-noob.core> ; will also eliminate the duplicate elements
+clojure-noob.core> (conj #{:a :b} :b)
+#{:b :a}
+clojure-noob.core> ; creating sets from existing vectors and list by using =set= function
+clojure-noob.core> 
+clojure-noob.core> (set [1 2 3 3 4 4])
+#{1 4 3 2}
+clojure-noob.core> ; of course you can see that set doesn't keep order.
+clojure-noob.core> 
+clojure-noob.core> ; using =contains?= function to check whether or not the element is in this set.
+clojure-noob.core> 
+clojure-noob.core> (contains? #{:a :b} :a)
+true
+clojure-noob.core> (contains? '(1 2 3) 1)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval14127 (form-init5698173910556762674.clj:362).
+contains? not supported on type: clojure.lang.PersistentList
+clojure-noob.core> (contains? [1 2 3] 1)
+true
+clojure-noob.core> (contains? {:a 1 :b 2} :b)
+true
+clojure-noob.core> (contains? {:a 1 :b 2} :a)
+true
+clojure-noob.core> (contains? {:a 1 :b 2} 1)
+false
+clojure-noob.core> ; =contains?= (contains? <collection> <element>) can apply on:
+clojure-noob.core> ; (1) set
+clojure-noob.core> ; (2) map
+clojure-noob.core> ; (3) vector
+clojure-noob.core> ; CAN NOT apply on list
+clojure-noob.core> 
+clojure-noob.core> (1 '(1 23))
+Execution error (ClassCastException) at clojure-noob.core/eval14137 (form-init5698173910556762674.clj:379).
+java.lang.Long cannot be cast to clojure.lang.IFn
+clojure-noob.core> (:a '(:a :b))
+nil
+clojure-noob.core> (:a [:a :b])
+nil
+clojure-noob.core> (:a {:a 2 :b 3})
+2
+clojure-noob.core> (:a #{:a 2 3 :a})
+Syntax error reading source at (REPL:388:36).
+Duplicate key: :a
+clojure-noob.core> #{:a :a :a}
+Syntax error reading source at (REPL:391:31).
+Duplicate key: :a
+clojure-noob.core> (hash-set 1 2 2311 1 2)
+#{1 2311 2}
+clojure-noob.core> ; can duplicate by using =hash-set= to build a set;
+clojure-noob.core> ; can not duplicate by using literal representation to build a set.
+clojure-noob.core> 
+clojure-noob.core> (get [1 2 3] 1)
+2
+clojure-noob.core> (get {:a 1 :b 2} :a)
+1
+clojure-noob.core> (get '(1 2 3) 1)
+nil
+clojure-noob.core> (get '(1 2 3 1) 0)
+nil
+clojure-noob.core> (get '(1 2 3) 3)
+nil
+clojure-noob.core> (get #{:a :b} :a)
+:a
+clojure-noob.core> (get '(1 2 3) "hello")
+nil
+clojure-noob.core> (nth '(1 2 3) 1)
+2
+clojure-noob.core> (nth '(1 2 3) 4 "hello")
+"hello"
+clojure-noob.core> 
+clojure-noob.core> ; by now 4 kinds of collection:
+clojure-noob.core> ; name      literal declaration       function declaration     access       add element
+clojure-noob.core> ; vector    []                        (vector ele1 ele2 ...)   get          conj at tail
+clojure-noob.core> ; list      '()                       (list ele1 ele2 ...)     nth          conj at head
+clojure-noob.core> ; map       {}                        (hash-map ele1 ele2 ...) get          assoc at tail
+clojure-noob.core> ; set       #{}                       (hash-set ele1 ele2 ...) get         conj at random
+clojure-noob.core> (contains? '(1 23 ) 2)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval14165 (form-init5698173910556762674.clj:424).
+contains? not supported on type: clojure.lang.PersistentList
+clojure-noob.core> (contains? [ 1 2 3] 2)
+true
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Simplicity
+clojure-noob.core> ; ----------
+clojure-noob.core> ; there is no class in clojure, because the emphasis on simplicity
+clojure-noob.core> ; is encouraging you to reach for the built-in data structure.
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Functions
+clojure-noob.core> ; ---------
+clojure-noob.core> ; Function in clojure is the whole thing, it is absolutely a function, mean while it's 
+clojure-noob.core> ; also data, which means you can use it as a parameters, and all things in clojure 
+clojure-noob.core> ; occur at the front of inside the brace is a function, like (+ ...) (str ...), so "+"
+clojure-noob.core> ; and "str" can also be used as a data located in parameter part:
+clojure-noob.core> ; (or - +)
+clojure-noob.core> (or + -)
+#function[clojure.core/+]
+clojure-noob.core> ((or + -) 1 2 3)
+6
+clojure-noob.core> ((or - +) 1 2 3)
+-4
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Defining Functions
+clojure-noob.core> ; ------------------
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (defn too-enthusiastic
+                     "return a cheer that might be a bit too enthusiastic"
+                     [name]
+                     (str "oh. my. god!" name " you are most definitely like the man!"))
+#'clojure-noob.core/too-enthusiastic
+clojure-noob.core> (too-enthusiastic "zelda")
+"oh. my. god!zelda you are most definitely like the man!"
+clojure-noob.core> (defn no-params [] "hello 1")
+#'clojure-noob.core/no-params
+clojure-noob.core> (no-params)
+"hello 1"
+clojure-noob.core> no-params
+#function[clojure-noob.core/no-params]
+clojure-noob.core> (no-params )
+"hello 1"
+clojure-noob.core> (defn one-parmas [name] (str "hello " name))
+#'clojure-noob.core/one-parmas
+clojure-noob.core> (one-parmas "yuanlong")
+"hello yuanlong"
+clojure-noob.core> (defn two-params [name age] (str "hello " name ", you're " age))
+#'clojure-noob.core/two-params
+clojure-noob.core> (two-params "yuanlong" 32)
+"hello yuanlong, you're 32"
+clojure-noob.core> 
+clojure-noob.core> ; above shows the multi-parameters
+clojure-noob.core> 
+clojure-noob.core> ; about the arity
+clojure-noob.core> ; you can give multi-braces to set different list of parameters,
+clojure-noob.core> ; which can used to give default-value and polymophic --- some
+clojure-noob.core> ; important feature in OO language.
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (defn multi-arity
+                     " 3-arity arguments and body"
+                     ([first-arg second-arg third-aug]
+                      (str "3 arity: " first-arg second-arg third-aug))
+                     ([first-arg]
+                      (str "two default values: " first-arg " 2nd " " 3rd"))
+                     )
+#'clojure-noob.core/multi-arity
+clojure-noob.core> (multi-arity "nihao")
+"two default values: nihao 2nd  3rd"
+clojure-noob.core> (multi-arity "nihao" "yuanlong" "yuanxin")
+"3 arity: nihaoyuanlongyuanxin"
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; variable-arity
+clojure-noob.core> ; --------------
+clojure-noob.core> 
+clojure-noob.core> (defn codger-communication
+                     [whisppersnapper]
+                     (str "get off my lawn, " whisppersnapper))
+#'clojure-noob.core/codger-communication
+clojure-noob.core> (defn codger
+                     [& whippersnappers]
+                     (map codger-communication whippersnapper))
+Syntax error compiling at (clj-repl:513:22).
+Unable to resolve symbol: whippersnapper in this context
+clojure-noob.core> (defn codger
+                     [& whippersnappers]
+                     (map codger-communication whippersnappers))
+#'clojure-noob.core/codger
+clojure-noob.core> (codger "Billy"  "yuanlong" "yuanxin")
+("get off my lawn, Billy"
+ "get off my lawn, yuanlong"
+ "get off my lawn, yuanxin")
+clojure-noob.core> ; about variable-arity, use it as a collection inside the function definition.
+clojure-noob.core> 
+clojure-noob.core> ; "&" is the symbol for rest parameters
+clojure-noob.core> (defn favorite-things)
+Syntax error macroexpanding clojure.core/defn at (clj-repl:527:20).
+() - failed: Insufficient input at: [:fn-tail] spec: :clojure.core.specs.alpha/defn-args
+clojure-noob.core> (defn favorite-things
+                     [name & things]
+                     (str "hi, " name " , here are my favorite things: "
+                          (clojure.string/join ", " things)))
+#'clojure-noob.core/favorite-things
+clojure-noob.core> (favorite-things "yuanlong" "shufa" "会话" "吃饭")
+"hi, yuanlong , here are my favorite things: shufa, 会话, 吃饭"
+clojure-noob.core> 
+clojure-noob.core> ; Destructuring
+clojure-noob.core> ; -------------
+clojure-noob.core> ; "destructuring" is used for concisely binding names to values within a
+clojure-noob.core> ; collection.
+clojure-noob.core> 
+clojure-noob.core> (defn my-first
+                     [[first-thing]]
+                     first-thing)
+#'clojure-noob.core/my-first
+clojure-noob.core> (my-first ["oven" "bike" "war-axe"])
+"oven"
+clojure-noob.core> ; arguments ---> (func arg1 arg2 arg3)
+clojure-noob.core> ; arity ---> (func arg1) or (func arg1 arg2) or (func arg1 arg2 arg3)
+clojure-noob.core> ; rest parameters ---> (func arg1_ele arg2_collec) 
+clojure-noob.core> ; destructuring ---> (func [arg1 arg2 arg3 ...])
+clojure-noob.core> 
+clojure-noob.core> ; Destructuring + Rest parameter symbole
+clojure-noob.core> 
+clojure-noob.core> (defn chooser
+                     [[first-choice]] ; it will only extract the 1st element of parameter list
+                     first-choice)
+#'clojure-noob.core/chooser
+clojure-noob.core> (chooser [1 2 3 34])
+1
+clojure-noob.core> (defn chooser
+                     [[first-choice second-choice & unimportant-choices]]
+                     (println (str "your 1st choice is: " first-choice))
+                     (println (str "your 2nd choice is: " second-choice))
+                     (println (str "your ignore choices are: " (clojure.string/join ", " unimportant-choices))))
+#'clojure-noob.core/chooser
+clojure-noob.core> 
+clojure-noob.core> ; the rest part used as a list inside of the function definition.
+clojure-noob.core> 
+clojure-noob.core> ; destructure vector ===> (defn fn_name [[...]])
+clojure-noob.core> ; destructure maps ===> (defn fn_name [{...}]])
+clojure-noob.core> ; destructure sets ===> (defn fn_name [#{...}]])
+clojure-noob.core> ; destructure list ===> (defn fn_name ['(...)]])
+clojure-noob.core> 
+clojure-noob.core> (defn des-list
+                     ['(a b c)]
+                     (println a)
+                     (println b)
+                     (println (str "hello" c)))
+Syntax error macroexpanding clojure.core/defn at (clj-repl:576:20).
+(quote (a b c)) - failed: vector? at: [:fn-tail :arity-n :bodies :params] spec: :clojure.core.specs.alpha/param-list
+((quote (a b c))) - failed: Extra input at: [:fn-tail :arity-1 :params] spec: :clojure.core.specs.alpha/param-list
+clojure-noob.core> (defn des-map
+                     [{:a :b}]
+                     (println (str a " and " b)))
+Syntax error macroexpanding clojure.core/defn at (clj-repl:584:20).
+{:a :b} - failed: vector? at: [:fn-tail :arity-n :bodies :params] spec: :clojure.core.specs.alpha/param-list
+({:a :b}) - failed: Extra input at: [:fn-tail :arity-1 :params] spec: :clojure.core.specs.alpha/param-list
+clojure-noob.core> (defn des-map
+                     [{a :a b :b}]
+                     (println (str a " and " b)))
+#'clojure-noob.core/des-map
+clojure-noob.core> (des-map {:a 1 :b 2})
+1 and 2
+nil
+clojure-noob.core> (defn des-map
+                     [#{a b}]
+                     (println (str a " and " b)))
+Syntax error macroexpanding clojure.core/defn at (clj-repl:597:20).
+#{a b} - failed: vector? at: [:fn-tail :arity-n :bodies :params] spec: :clojure.core.specs.alpha/param-list
+(#{a b}) - failed: Extra input at: [:fn-tail :arity-1 :params] spec: :clojure.core.specs.alpha/param-list
+clojure-noob.core> ; destructure can only apply on vector and map, not for list and set.
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (defn announce-treasure-location
+                     [{:keys [lat lng]}]
+                     (println (str "treasure lat: " lat))
+                     (println (str "treasure lng: " lng)))
+#'clojure-noob.core/announce-treasure-location
+clojure-noob.core> (announce-treasure-location {:a 1 :b 2})
+treasure lat: 
+treasure lng: 
+nil
+clojure-noob.core> (defn announce-treasure-location
+                     [{lat :lat lng :lng}]
+                     (println (str "latitude is: " lat))
+                     (println (str "langitude is: " lng))
+                     )
+#'clojure-noob.core/announce-treasure-location
+clojure-noob.core> (announce-treasure-location {:lat 1 :lng 2})
+latitude is: 1
+langitude is: 2
+nil
+clojure-noob.core> (announce-treasure-location {:lt 1 :lg 2})
+latitude is: 
+langitude is: 
+nil
+clojure-noob.core> (defn announce-treasure-location
+                     [{:keys [lat lng]}]
+                     (println (str "latitude is: " lat))
+                     (println (str "langitude is: " lng))
+                     )
+#'clojure-noob.core/announce-treasure-location
+clojure-noob.core> (announce-treasure-location {:lat 1 :lng 2})
+latitude is: 1
+langitude is: 2
+nil
+clojure-noob.core> ; Here you must note that, when you declare a function using the destructure map
+clojure-noob.core> ; the keys of map you define must be keep same with the keys of map you pass to
+clojure-noob.core> ; functions when call it.
+clojure-noob.core> ; means (defn xxx [{___ :arg1 ___ :arg2}] ...) the name "arg1" and "arg2" must 
+clojure-noob.core> ; be the name of keys in (xxx {:arg1 sth :arg2 sth}).
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> {:key 1 :key2 2}
+{:key 1, :key2 2}
+clojure-noob.core> {:keys [key key2]}
+Syntax error compiling at (clj-repl:1:14304).
+Unable to resolve symbol: key2 in this context
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; "as" destructure the maps
+clojure-noob.core> ; -------------------------
+clojure-noob.core> 
+clojure-noob.core> (defn receive-treasure-location
+                     [{:keys [lat lng] :as treasure-location}]
+                     (println (str "treasure lat: " lat))
+                     (println (str "treasure lng: " lng))
+                     
+                     ; one would assume that this would put in new coordinates
+                     ; for your ship
+                     (steer-ship! treasure-location))
+Syntax error compiling at (clj-repl:664:22).
+Unable to resolve symbol: steer-ship! in this context
+clojure-noob.core> (defn receive-treasure-location
+                     [{:keys [lat lng] :as treasure-location}]
+                     (println (str "treasure lat: " lat))
+                     (println (str "treasure lng: " lng))
+                     
+                     ; one would assume that this would put in new coordinates
+                     ; for your ship
+                     (println treasure-location))
+#'clojure-noob.core/receive-treasure-location
+clojure-noob.core> (receive-treasure-location {:lat 3 :lng 2 :other 123123123})
+treasure lat: 3
+treasure lng: 2
+{:lat 3, :lng 2, :other 123123123}
+nil
+clojure-noob.core> ; As shown above, "as" when used in destructure maps, it is a 
+clojure-noob.core> ; special keyword which represent the map passed to this function
+clojure-noob.core> ; when it's called.
+clojure-noob.core> 
+clojure-noob.core> ; For Destructure map ":keys" and ":as" are special keywords:
+clojure-noob.core> ; "{:keys ...}" and the list-type values represent the same named keys of original map
+clojure-noob.core> ; "{:as ... }" and the value represent the whole original map
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Function body
+clojure-noob.core> ; -------------
+clojure-noob.core> (defn illustrative-function
+                     []
+                     (+ 1 303)
+                     30
+                     "joe")
+#'clojure-noob.core/illustrative-function
+clojure-noob.core> (illustrative-function)
+"joe"
+clojure-noob.core> (defn number-comment
+                     [x]
+                     (if (> x 6)
+                       "oh my god"
+                       "that number's ok"))
+#'clojure-noob.core/number-comment
+clojure-noob.core> (number-comment 3)
+"that number's ok"
+clojure-noob.core> (number-comment 33)
+"oh my god"
+clojure-noob.core> 
+clojure-noob.core> ; All functions are created equal
+clojure-noob.core> ; -------------------------------
+clojure-noob.core> ; all functions in clojure are equal, no previlege for the pre-defined api functions
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; Anonymous Functions
+clojure-noob.core> ; -------------------
+clojure-noob.core> ;
+clojure-noob.core> 
+clojure-noob.core> ; In clojure, functions don't need to have names. In fact, you'll use anonymous functions all
+clojure-noob.core> ; the time.
+clojure-noob.core> 
+clojure-noob.core> (fn [x y z] (println x y z))
+#function[clojure-noob.core/eval14263/fn--14264]
+clojure-noob.core> ((fn [x y z] (println x y z)) 3 2 1)
+3 2 1
+nil
+clojure-noob.core> (println "x" 1 2 "y")
+x 1 2 y
+nil
+clojure-noob.core> (map (fn [name] (str "hi, " name)) ["daer vader" "mr. megoo"])
+("hi, daer vader" "hi, mr. megoo")
+clojure-noob.core> #(* % 3)
+#function[clojure-noob.core/eval14279/fn--14280]
+clojure-noob.core> (#(* % 3) 4)
+12
+clojure-noob.core> ; For anonymous function:
+clojure-noob.core> ; (1) compact way: "# ()"
+clojure-noob.core> ; (2) formal way : "(fn )"
+clojure-noob.core> ((fn [x] (println x)) 3)
+3
+nil
+clojure-noob.core> (#(println %) 3)
+3
+nil
+clojure-noob.core> ; (1) compact way: "#(<body>)"
+clojure-noob.core> ; (2) formal  way: "(fn <params> <body>)"
+clojure-noob.core> 
+clojure-noob.core> (map #(str "hi, " %) ["yuanlong" "yuanxin"])
+("hi, yuanlong" "hi, yuanxin")
+clojure-noob.core> (#(str %1 " and " %2) "cornbread" "butter")
+"cornbread and butter"
+clojure-noob.core> ; Anonymous function can also use all the features of normal function:
+clojure-noob.core> ; (1) multi-arguments
+clojure-noob.core> ; (2) multi-arity
+clojure-noob.core> ; (3) variable-arity
+clojure-noob.core> ; (4) rest parameters symbol
+clojure-noob.core> 
+clojure-noob.core> ; (1) multi-arguments
+clojure-noob.core> (#(str %1 " and " %2) 1 2)
+"1 and 2"
+clojure-noob.core> ; (2) multi-arity
+clojure-noob.core> ; don't know
+clojure-noob.core> 
+clojure-noob.core> ; (3) variable-arity and rest parameters
+clojure-noob.core> (#(identity %&) 1 "bag" :yip)
+(1 "bag" :yip)
+clojure-noob.core> ; Returning Functions
+clojure-noob.core> ; -------------------
+clojure-noob.core> 
+clojure-noob.core> (defn inc-maker
+                     "create a custom incrementor"
+                     [inc-by]
+                     #(+ % inc-by))
+#'clojure-noob.core/inc-maker
+clojure-noob.core> (inc-maker 3)
+#function[clojure-noob.core/inc-maker/fn--14329]
+clojure-noob.core> ; int -> (int -> int)
+clojure-noob.core> 
+clojure-noob.core> (defn addpara
+                     "return a function which only give one parameters"
+                     [number]
+                     #(+ % number))
+#'clojure-noob.core/addpara
+clojure-noob.core> ((addpara 3) 4)
+7
+clojure-noob.core> ; Final proj of this chapter
+clojure-noob.core> ; --------------------------
+clojure-noob.core> ; Smacking around hobbits!
+clojure-noob.core> 
+clojure-noob.core> (def asym-hobbit-body-parts
+                     [{:name "head" :size 3}
+                      {:name "left-eye" :size 1}
+                      {:name "left-ear" :size 1}
+                      {:name "mouth" :size 1}
+                      {:name "nose" :size 1}
+                      {:name "neck" :size 2}
+                      {:name "left-shoulder" :size 3}
+                      {:name "left-upper-arm" :size 3}
+                      {:name "chest" :size 10}
+                      {:name "back" :size 10}
+                      {:name "left-forearm" :size 3}
+                      {:name "abdomen" :size 6}
+                      {:name "left-kidney" :size 1}
+                      {:name "left-hand" :size 2}
+                      {:name "left-knee" :size 2}
+                      {:name "left-thigh" :size 4}
+                      {:name "left-lower-leg" :size 3}
+                      {:name "left-achilles" :size 1}
+                      {:name "left-foot" :size 2}])
+#'clojure-noob.core/asym-hobbit-body-parts
+clojure-noob.core> (defn matching-part
+                     [part]
+                     {:name (clojure.string/replace (:name part) #"^left-" "right-")
+                      :size (:size part)})
+#'clojure-noob.core/matching-part
+clojure-noob.core> 
+clojure-noob.core> (defn symmetrize-body-parts
+                     [asym-body-parts]
+                     (loop [remaining-asym-parts asym-body-parts
+                            final-body-parts []]
+                       (if (empty? remaining-asym-parts)
+                         final-body-parts
+                         (let [[part & remaining] remaining-asym-parts]
+                           (recur remaining
+                                  (into final-body-parts
+                                        (set [part (matching-part part)])))))))
+#'clojure-noob.core/symmetrize-body-parts
+clojure-noob.core> 
+clojure-noob.core> (symmetrize-body-parts asym-hobbit-body-parts)
+[{:name "head", :size 3}
+ {:name "left-eye", :size 1}
+ {:name "right-eye", :size 1}
+ {:name "left-ear", :size 1}
+ {:name "right-ear", :size 1}
+ {:name "mouth", :size 1}
+ {:name "nose", :size 1}
+ {:name "neck", :size 2}
+ {:name "left-shoulder", :size 3}
+ {:name "right-shoulder", :size 3}
+ {:name "right-upper-arm", :size 3}
+ {:name "left-upper-arm", :size 3}
+ {:name "chest", :size 10}
+ {:name "back", :size 10}
+ {:name "left-forearm", :size 3}
+ {:name "right-forearm", :size 3}
+ {:name "abdomen", :size 6}
+ {:name "left-kidney", :size 1}
+ {:name "right-kidney", :size 1}
+ {:name "left-hand", :size 2}
+ {:name "right-hand", :size 2}
+ {:name "right-knee", :size 2}
+ {:name "left-knee", :size 2}
+ {:name "right-thigh", :size 4}
+ {:name "left-thigh", :size 4}
+ {:name "right-lower-leg", :size 3}
+ {:name "left-lower-leg", :size 3}
+ {:name "right-achilles", :size 1}
+ {:name "left-achilles", :size 1}
+ {:name "right-foot", :size 2}
+ {:name "left-foot", :size 2}]
+clojure-noob.core> 
+clojure-noob.core> (let [x 3] x)
+3
+clojure-noob.core> (def dalmatian-list
+                     ["pongo" "perdita" "puppy" "puppy2"])
+#'clojure-noob.core/dalmatian-list
+clojure-noob.core> (let [dalmatians (take 2 dalmatian-list)] dalmatian-list)
+["pongo" "perdita" "puppy" "puppy2"]
+clojure-noob.core> (let [x 2] x)
+2
+clojure-noob.core> (let [x 2])
+nil
+clojure-noob.core> (def x 0)
+#'clojure-noob.core/x
+clojure-noob.core> x
+0
+clojure-noob.core> (let [x 3] x)
+3
+clojure-noob.core> x
+0
+clojure-noob.core> (inc x)
+1
+clojure-noob.core> ; 'let' can also use the rest parameters symbol.
+clojure-noob.core> (let [[pongo & dalmatians] dalmatian-list]
+                     [pongo dalmatians])
+["pongo" ("perdita" "puppy" "puppy2")]
+clojure-noob.core> ; 'let' can also use the destructure method.
+clojure-noob.core> 
+clojure-noob.core> (into [] (set [:a :a]))
+[:a]
+clojure-noob.core> (loop [iteration 0]
+                     (println (str "iteration " iteration))
+                     (if (> iteration 3)
+                       (println "goodbye!")
+                       (recur (inc iteration))))
+iteration 0
+iteration 1
+iteration 2
+iteration 3
+iteration 4
+goodbye!
+nil
+clojure-noob.core> (defn recursive-printer
+                     ([]
+                      (recursive-printer 0))
+                     ([iteration]
+                      (println iteration)
+                      (if (> iteration 3)
+                        (println "goodbye")
+                        (recursive-printer (inc iteration)))))
+#'clojure-noob.core/recursive-printer
+clojure-noob.core> 
+clojure-noob.core> (recursive-printer)
+0
+1
+2
+3
+4
+goodbye
+nil
+clojure-noob.core> (loop [itera 0]
+                     (println "hello let's begin!")
+                     (if (> 3)
+                       "stop here!"
+                       (recur (inc itera))))
+hello let's begin!
+"stop here!"
+clojure-noob.core> (loop [itera 0]
+                     (println "hello let's begin!")
+                     (println "hello " itera)
+                     (if (> 3)
+                       "stop here!"
+                       (recur (inc itera))))
+hello let's begin!
+hello  0
+"stop here!"
+clojure-noob.core> (loop [itera 0]
+                     (println "hello let's begin!")
+                     (println "hello " itera)
+                     (if (> itera 3)
+                       "stop here!"
+                       (recur (inc itera))))
+hello let's begin!
+hello  0
+hello let's begin!
+hello  1
+hello let's begin!
+hello  2
+hello let's begin!
+hello  3
+hello let's begin!
+hello  4
+"stop here!"
+clojure-noob.core> (loop [itera 0]
+                     (println "hello let's begin!")
+                     (if (> itera 3)
+                       "stop here!"
+                       (do (println "hello " itera)
+                           (recur (inc itera)))))
+hello let's begin!
+hello  0
+hello let's begin!
+hello  1
+hello let's begin!
+hello  2
+hello let's begin!
+hello  3
+hello let's begin!
+"stop here!"
+clojure-noob.core> (loop [itera 0]
+                     (if (> itera 3)
+                       "stop here!"
+                       (do (println "hello " itera)
+                           (recur (inc itera)))))
+hello  0
+hello  1
+hello  2
+hello  3
+"stop here!"
+clojure-noob.core> (defn recusive-count
+                     [count]
+                     "recursive version of counting!"
+                     (if (> count 3)
+                       "stop here!"
+                       (do (println "hello" count) (recusive-count count))))
+#'clojure-noob.core/recusive-count
+clojure-noob.core> 
+clojure-noob.core> (recusive-count 3)
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+hello 3
+Execution error (StackOverflowError) at nrepl.transport/bencode$fn (transport.clj:114).
+null
+clojure-noob.core> (defn recusive-count
+                     [count]
+                     "recursive version of counting!"
+                     (if (> count 3)
+                       "stop here!"
+                       (do (println "hello" count) (recusive-count (inc count)))))
+#'clojure-noob.core/recusive-count
+clojure-noob.core> (recusive-count 3)
+hello 3
+"stop here!"
+clojure-noob.core> (recusive-count 0)
+hello 0
+hello 1
+hello 2
+hello 3
+"stop here!"
+clojure-noob.core> ; Regular Expression
+clojure-noob.core> ; ------------------
+clojure-noob.core> 
+clojure-noob.core> #"regular-expression"
+#"regular-expression"
+clojure-noob.core> (re-find #"^left-" "left-eye")
+"left-"
+clojure-noob.core> (re-find #"^left-" "cleft-eye")
+nil
+clojure-noob.core> (re-find #"^left-" "wongleblart")
+nil
+clojure-noob.core> (defn matching-part
+                     [part]
+                     {:name (clojure.string/replace (:name part) #"^left-" "right-")
+                      :size (:size part)})
+#'clojure-noob.core/matching-part
+clojure-noob.core> 
+clojure-noob.core> (matching-part {:name "left-eye" :size 1})
+{:name "right-eye", :size 1}
+clojure-noob.core> (reduce + [1 2 3 4])
+10
+clojure-noob.core> (+ (+ (+ 1 2) 3) 4)
+10
+clojure-noob.core> (reduce + 15 [1 2 3 4])
+25
+clojure-noob.core> (reduce / 15 [1 2 3 4])
+5/8
+clojure-noob.core> (defn my-reduce
+                     ([f initial coll]
+                      (loop [result initial
+                             remaining coll]
+                        (if (empty? remaining)
+                          result
+                          (recur (f result (first remaining)) (rest remaining)))))
+                     ([f [head & tail]]
+                      (my-reduce f head tail)))

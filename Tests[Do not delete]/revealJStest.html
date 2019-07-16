@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="english">
+<head>
+<meta charset="utf-8"/>
+<title>机器学习分享</title>
+<meta name="author" content="(yiddi)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/moon.css" id="theme"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">机器学习分享</h1><p class="date">Created: 2019-01-01 二 21:32</p>
+</section>
+
+
+
+<section>
+<section id="slide-org63cc77e">
+<h2 id="org63cc77e">机器学习相关概念</h2>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">机器学习及其别称</td>
+<td class="org-left">机器学习,人工智能,数据挖掘</td>
+</tr>
+
+<tr>
+<td class="org-left">机器学习算法门类</td>
+<td class="org-left">传统机器学习,深度学习,强化学习,迁移学习</td>
+</tr>
+
+<tr>
+<td class="org-left">机器学习与数学</td>
+<td class="org-left">机器学习,统计学,线性代数</td>
+</tr>
+
+<tr>
+<td class="org-left">机器学习与工程</td>
+<td class="org-left">机器学习,大数据,图像处理,自然语言处理(语音与文本)</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc267cc8">
+<h2 id="orgc267cc8">实例理解机器学习</h2>
+<div class="outline-text-2" id="text-orgc267cc8">
+</div>
+</section>
+<section id="slide-orgbcbc788">
+<h3 id="orgbcbc788">场景１</h3>
+<ul>
+<li>肖总: 快过年了,今年架构组的各位表现的怎么样?</li>
+<li>尹架: &#x2026; 都很好.</li>
+<li>肖总: 给我个评估, 哪些好,哪些不好.</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="python" >print("heelo")
+</code></pre>
+</div>
+</section>
+<section id="slide-orga8b3c22">
+<h3 id="orga8b3c22">场景１</h3>
+<p>
+hello
+</p>
+</section>
+<section id="slide-orgb022806">
+<h3 id="orgb022806">场景１</h3>
+<p>
+hello
+</p>
+</section>
+<section id="slide-org9b1973f">
+<h3 id="org9b1973f">场景１</h3>
+<p>
+hello
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+margin: 0.40,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }]
+});
+</script>
+</body>
+</html>

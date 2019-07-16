@@ -1,0 +1,403 @@
+;; Connected to nREPL server - nrepl://localhost:43899
+;; CIDER 0.22.0snapshot (package: 20190607.2013), nREPL 0.6.0
+;; Clojure 1.10.0, Java 1.8.0_201
+;;     Docs: (doc function-name)
+;;           (find-doc part-of-name)
+;;   Source: (source function-name)
+;;  Javadoc: (javadoc java-object-or-class)
+;;     Exit: <C-c C-q>
+;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+;; ======================================================================
+;; If you’re new to CIDER it is highly recommended to go through its
+;; manual first. Type <M-x cider-view-manual> to view it.
+;; In case you’re seeing any warnings you should consult the manual’s
+;; "Troubleshooting" section.
+;;
+;; Here are few tips to get you started:
+;;
+;; * Press <C-h m> to see a list of the keybindings available (this
+;;   will work in every Emacs buffer)
+;; * Press <, ,> to quickly invoke some REPL command
+;; * Press <, s s> to switch between the REPL and a Clojure file
+;; * Press <M-x cider-find-var> to jump to the source of something (e.g. a var, a
+;;   Java method)
+;; * Press <, h h> to view the documentation for something (e.g.
+;;   a var, a Java method)
+;; * Enable ‘eldoc-mode’ to display function & method signatures in the minibuffer.
+;; * Print CIDER’s refcard and keep it close to your keyboard.
+;;
+;; CIDER is super customizable - try <M-x customize-group cider> to
+;; get a feel for this. If you’re thirsty for knowledge you should try
+;; <M-x cider-drink-a-sip>.
+;;
+;; If you think you’ve encountered a bug (or have some suggestions for
+;; improvements) use <M-x cider-report-bug> to report it.
+;;
+;; Above all else - don’t panic! In case of an emergency - procure
+;; some (hard) cider and enjoy it responsibly!
+;;
+;; You can remove this message with the <M-x cider-repl-clear-help-banner> command.
+;; You can disable it from appearing on start by setting
+;; ‘cider-repl-display-help-banner’ to nil.
+;; ======================================================================
+WARNING: CIDER 0.22.0-snapshot requires cider-nrepl 0.22.0-beta4, but you're currently using cider-nrepl 0.21.1. The version mismatch might break some functionality!
+         More information.
+clojure-noob.core> (def my-reduce
+                     ([func item col]
+                      (loop [temp-col col
+                             final-item item]
+                        (if (empty? temp-col)
+                          final-item
+                          (let [[head & tail] temp-col]
+                            (recur tail
+                                   (func final-item head))))))
+                     ([func col]
+                      (my-reduce func 0 col)))
+Syntax error compiling def at (clojure-noob:localhost:43899(clj)*:45:20).
+Too many arguments to def
+clojure-noob.core> (defn my-reduce
+                     ([func item col]
+                      (loop [temp-col col
+                             final-item item]
+                        (if (empty? temp-col)
+                          final-item
+                          (let [[head & tail] temp-col]
+                            (recur tail
+                                   (func final-item head))))))
+                     ([func col]
+                      (my-reduce func 0 col)))
+#'clojure-noob.core/my-reduce
+clojure-noob.core> 
+clojure-noob.core> (my-reduce + 0 [])
+0
+clojure-noob.core> (my-reduce + 1 [])
+1
+clojure-noob.core> (my-reduce + 1 [2 3 4])
+10
+clojure-noob.core> (my-reduce + [2 3 4])
+9
+clojure-noob.core> ; reduce = loop if let recur
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> ; 如何利用 reduce 来把只有 left 部分的身体结构, 转换成
+clojure-noob.core> ; 既有 left 也有 right 的身体结构集合呢.--- 利用 reduce
+clojure-noob.core> ; 做[集合扩展].
+clojure-noob.core> 
+clojure-noob.core> ; reduce 的第一个函数参数必须是 col, item -> col
+clojure-noob.core> 
+clojure-noob.core> (into [] :a)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval15821 (form-init6102745662707130912.clj:88).
+Don't know how to create ISeq from: clojure.lang.Keyword
+clojure-noob.core> (into [] 1)
+Execution error (IllegalArgumentException) at clojure-noob.core/eval15823 (form-init6102745662707130912.clj:91).
+Don't know how to create ISeq from: java.lang.Long
+clojure-noob.core> (into [] [1])
+[1]
+clojure-noob.core> (defn match-part
+                     [part]
+                     ({:name (clojure.string/replace (:name part) #"^left-" "right-")
+                       :size (:size part)}))
+#'clojure-noob.core/match-part
+clojure-noob.core> 
+clojure-noob.core> (defn asym-helper
+                     [col item]
+                     (into col 
+                           (set [item
+                                 (match-part item)])))
+#'clojure-noob.core/asym-helper
+clojure-noob.core> 
+clojure-noob.core> (def asym-hobbit-body-parts [{:name "head" :size 3}
+                                                {:name "left-eye" :size 1}
+                                                {:name "left-ear" :size 1}
+                                                {:name "mouth" :size 1}
+                                                {:name "nose" :size 1}
+                                                {:name "neck" :size 2}
+                                                {:name "left-shoulder" :size 3}
+                                                {:name "left-upper-arm" :size 3}
+                                                {:name "chest" :size 10}
+                                                {:name "back" :size 10}
+                                                {:name "left-forearm" :size 3}
+                                                {:name "abdomen" :size 6}
+                                                {:name "left-kidney" :size 1}
+                                                {:name "left-hand" :size 2}
+                                                {:name "left-knee" :size 2}
+                                                {:name "left-thigh" :size 4}
+                                                {:name "left-lower-leg" :size 3}
+                                                {:name "left-achilles" :size 1}
+                                                {:name "left-foot" :size 2}])
+
+#'clojure-noob.core/asym-hobbit-body-parts
+clojure-noob.core> 
+clojure-noob.core> (reduce asym-helper [] asym-hobbit-body-parts)
+Execution error (ArityException) at clojure-noob.core/match-part (form-init6102745662707130912.clj:98).
+Wrong number of args (0) passed to: clojure.lang.PersistentArrayMap
+clojure-noob.core> (asym-helper [] {:name "he" "size" 3})
+Execution error (ArityException) at clojure-noob.core/match-part (form-init6102745662707130912.clj:98).
+Wrong number of args (0) passed to: clojure.lang.PersistentArrayMap
+clojure-noob.core> (match-part {:name "he" :size 2})
+Execution error (ArityException) at clojure-noob.core/match-part (form-init6102745662707130912.clj:98).
+Wrong number of args (0) passed to: clojure.lang.PersistentArrayMap
+clojure-noob.core> (defn match-part
+                     [part]
+                     {:name (clojure.string/replace (:name part) #"^left-" "right-")
+                      :size (:size part)})
+#'clojure-noob.core/match-part
+clojure-noob.core> (match-part {:name "he" :size 2})
+{:name "he", :size 2}
+clojure-noob.core> (reduce asym-helper [] asym-hobbit-body-parts)
+[{:name "head", :size 3}
+ {:name "left-eye", :size 1}
+ {:name "right-eye", :size 1}
+ {:name "left-ear", :size 1}
+ {:name "right-ear", :size 1}
+ {:name "mouth", :size 1}
+ {:name "nose", :size 1}
+ {:name "neck", :size 2}
+ {:name "left-shoulder", :size 3}
+ {:name "right-shoulder", :size 3}
+ {:name "right-upper-arm", :size 3}
+ {:name "left-upper-arm", :size 3}
+ {:name "chest", :size 10}
+ {:name "back", :size 10}
+ {:name "left-forearm", :size 3}
+ {:name "right-forearm", :size 3}
+ {:name "abdomen", :size 6}
+ {:name "left-kidney", :size 1}
+ {:name "right-kidney", :size 1}
+ {:name "left-hand", :size 2}
+ {:name "right-hand", :size 2}
+ {:name "right-knee", :size 2}
+ {:name "left-knee", :size 2}
+ {:name "right-thigh", :size 4}
+ {:name "left-thigh", :size 4}
+ {:name "right-lower-leg", :size 3}
+ {:name "left-lower-leg", :size 3}
+ {:name "right-achilles", :size 1}
+ {:name "left-achilles", :size 1}
+ {:name "right-foot", :size 2}
+ {:name "left-foot", :size 2}]
+clojure-noob.core> (rand 3)
+0.7047969394153436
+clojure-noob.core> (rand 3)
+2.583163225438024
+clojure-noob.core> (rand 3)
+0.3707179406369152
+clojure-noob.core> (rand 3)
+2.29273504890626
+clojure-noob.core> ; input a random number, and body parts maps, return the part you hit.
+clojure-noob.core> 
+clojure-noob.core> ; float, list of maps -> map
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (def whole-body-parts (reduce asym-helper [] asym-hobbit-body-parts))
+#'clojure-noob.core/whole-body-parts
+clojure-noob.core> clojure-noob.core> 
+clojure-noob.core> 
+clojure-noob.core> (defn get-accumulated-size
+                     [whole-body-parts]
+                     (loop [temp-parts whole-body-parts
+                            accumulated-size 0]
+                       (if (empty? temp-parts)
+                         accumulated-size
+                         (let [[head & tail] temp-parts]
+                           (recur tail (+ accumulated-size (:size head)))))))
+#'clojure-noob.core/get-accumulated-size
+clojure-noob.core> 
+clojure-noob.core> (get-accumulated-size whole-body-parts)
+85
+clojure-noob.core> whole-body-parts
+[{:name "head", :size 3}
+ {:name "left-eye", :size 1}
+ {:name "right-eye", :size 1}
+ {:name "left-ear", :size 1}
+ {:name "right-ear", :size 1}
+ {:name "mouth", :size 1}
+ {:name "nose", :size 1}
+ {:name "neck", :size 2}
+ {:name "left-shoulder", :size 3}
+ {:name "right-shoulder", :size 3}
+ {:name "right-upper-arm", :size 3}
+ {:name "left-upper-arm", :size 3}
+ {:name "chest", :size 10}
+ {:name "back", :size 10}
+ {:name "left-forearm", :size 3}
+ {:name "right-forearm", :size 3}
+ {:name "abdomen", :size 6}
+ {:name "left-kidney", :size 1}
+ {:name "right-kidney", :size 1}
+ {:name "left-hand", :size 2}
+ {:name "right-hand", :size 2}
+ {:name "right-knee", :size 2}
+ {:name "left-knee", :size 2}
+ {:name "right-thigh", :size 4}
+ {:name "left-thigh", :size 4}
+ {:name "right-lower-leg", :size 3}
+ {:name "left-lower-leg", :size 3}
+ {:name "right-achilles", :size 1}
+ {:name "left-achilles", :size 1}
+ {:name "right-foot", :size 2}
+ {:name "left-foot", :size 2}]
+clojure-noob.core> (+ 3 1 1 1 1 1 1 2 3 3 3 3 10 10 3 3 6 1 1 2 2 2 2 4 4 3 3 1 1 2 2)
+85
+clojure-noob.core> ; vector of maps -> map
+clojure-noob.core> (defn get-hit-part
+                     [parts]
+                     (let [total-size (get-accumulated-size whole-body-parts) 
+                           rand-num (rand total-size)]
+                       (loop [temp-parts parts
+                              accumulated-size 0]
+                         (if (> accumulated-size rand-num)
+                           (first temp-parts)
+                           (let [[head & tail] temp-parts]
+                             (recur tail (+ accumulated-size (:size head))))))))
+#'clojure-noob.core/get-hit-part
+clojure-noob.core> 
+clojure-noob.core> (get-hit-part whole-body-parts)
+{:name "right-lower-leg", :size 3}
+clojure-noob.core> (get-hit-part whole-body-parts)
+{:name "right-shoulder", :size 3}
+clojure-noob.core> (get-hit-part whole-body-parts)
+{:name "back", :size 10}
+clojure-noob.core> (get-hit-part whole-body-parts)
+{:name "left-kidney", :size 1}
+clojure-noob.core> (get-hit-part whole-body-parts)
+{:name "mouth", :size 1}
+clojure-noob.core> (get-hit-part whole-body-parts)
+{:name "abdomen", :size 6}
+clojure-noob.core> (defn get-hit-part
+                     [parts]
+                     (let [total-size (get-accumulated-size whole-body-parts) 
+                           rand-num (rand total-size)]
+                       (loop [temp-parts parts
+                              accumulated-size 0]
+                         (if (> accumulated-size rand-num)
+                           (do
+                             (println "rand-num: " rand-num)
+                             (println "accumulated-size: " accumulated-size)
+                             (println "accumulated parts: " temp-parts)
+                             (first temp-parts))
+                           (let [[head & tail] temp-parts]
+                             (recur tail (+ accumulated-size (:size head))))))))
+#'clojure-noob.core/get-hit-part
+clojure-noob.core> 
+clojure-noob.core> (get-hit-part whole-body-parts)
+rand-num:  11.766256014288139
+accumulated-size:  14
+{:name "right-shoulder", :size 3}
+clojure-noob.core> whole-body-parts
+[{:name "head", :size 3}
+ {:name "left-eye", :size 1}
+ {:name "right-eye", :size 1}
+ {:name "left-ear", :size 1}
+ {:name "right-ear", :size 1}
+ {:name "mouth", :size 1}
+ {:name "nose", :size 1}
+ {:name "neck", :size 2}
+ {:name "left-shoulder", :size 3}
+ {:name "right-shoulder", :size 3}
+ {:name "right-upper-arm", :size 3}
+ {:name "left-upper-arm", :size 3}
+ {:name "chest", :size 10}
+ {:name "back", :size 10}
+ {:name "left-forearm", :size 3}
+ {:name "right-forearm", :size 3}
+ {:name "abdomen", :size 6}
+ {:name "left-kidney", :size 1}
+ {:name "right-kidney", :size 1}
+ {:name "left-hand", :size 2}
+ {:name "right-hand", :size 2}
+ {:name "right-knee", :size 2}
+ {:name "left-knee", :size 2}
+ {:name "right-thigh", :size 4}
+ {:name "left-thigh", :size 4}
+ {:name "right-lower-leg", :size 3}
+ {:name "left-lower-leg", :size 3}
+ {:name "right-achilles", :size 1}
+ {:name "left-achilles", :size 1}
+ {:name "right-foot", :size 2}
+ {:name "left-foot", :size 2}]
+clojure-noob.core> ; vector of maps -> map
+clojure-noob.core> 
+clojure-noob.core> (defn get-hit-map
+                     [parts]
+                     (let [rand-num (get-accumulated-size parts)]
+                       (loop [temp-parts parts
+                              accumulated-size 0]
+                         (if (> accumulated-size rand-num)
+                           (first temp-parts)
+                           (let [[head & tail] temp-parts]
+                             (recur tail
+                                    (+ accumulated (:size head))))))))
+Syntax error compiling at (clojure-noob:localhost:43899(clj)*:331:37).
+Unable to resolve symbol: accumulated in this context
+clojure-noob.core> (defn get-hit-map
+                     [parts]
+                     (let [rand-num (rand (get-accumulated-size parts))]
+                       (loop [temp-parts parts
+                              accumulated-size 0]
+                         (if (> accumulated-size rand-num)
+                           (first temp-parts)
+                           (let [[head & tail] temp-parts]
+                             (recur tail
+                                    (+ accumulated-size (:size head))))))))
+#'clojure-noob.core/get-hit-map
+clojure-noob.core> 
+clojure-noob.core> (get-hit-map whole-body-parts)
+Execution error (NullPointerException) at clojure-noob.core/get-hit-map (form-init6102745662707130912.clj:343).
+null
+clojure-noob.core> (defn get-hit-map
+                     [parts]
+                     (let [rand-num (rand (get-accumulated-size parts))]
+                       (loop [temp-parts parts
+                              accumulated-size 0] ; 需要被递归改变的量一定要出现在 loop 的变量声明中
+                         (if (> accumulated-size rand-num)
+                           (first temp-parts)
+                           (let [[head & tail] temp-parts] ; let 在与 recur 配合之前必须要对 loop 中的集合进行拆解
+                             (recur tail
+                                    (+ accumulated-size (:size head)))))))) ; recur 中放置的是具体的递归处理操作
+#'clojure-noob.core/get-hit-map
+clojure-noob.core> 
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "right-lower-leg", :size 3}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "left-thigh", :size 4}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "left-eye", :size 1}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "back", :size 10}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "back", :size 10}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "back", :size 10}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "left-kidney", :size 1}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "left-thigh", :size 4}
+clojure-noob.core> (get-hit-map whole-body-parts)
+{:name "back", :size 10}
+clojure-noob.core> (doc map)
+-------------------------
+clojure.core/map
+([f] [f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls])
+  Returns a lazy sequence consisting of the result of applying f to
+  the set of first items of each coll, followed by applying f to the
+  set of second items in each coll, until any one of the colls is
+  exhausted.  Any remaining items in other colls are ignored. Function
+  f should accept number-of-colls arguments. Returns a transducer when
+  no collection is provided.
+nil
+clojure-noob.core> (map inc [1 2 3])
+(2 3 4)
+clojure-noob.core> (reduce :name {:name 1})
+[:name 1]
+clojure-noob.core> (reduce :name {:name 1 :size 2})
+[:size 2]
+clojure-noob.core> (reduce :size {:name 1 :size 2 :age 3})
+[:age 3]
+clojure-noob.core> (reduce + {:name 1 :size 2 :age 3})
+Execution error (ClassCastException) at clojure-noob.core/eval17288 (form-init6102745662707130912.clj:398).
+clojure.lang.MapEntry cannot be cast to java.lang.Number
+clojure-noob.core> (reduce :size {:name 1 :size 2 :age 3})
+[:age 3]
+clojure-noob.core> 

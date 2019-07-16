@@ -1,0 +1,97 @@
+# -*- org-export-babel-evaluate: nil -*-
+#+TITLE: Tbltest
+
+#+PROPERTY: header-args :eval never-export
+
+#+STARTUP:  align fold nodlcheck hidestars oddeven lognotestate
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="theme/org-nav-theme.css" >
+#+HTML_HEAD: <script src="theme/org-nav-theme.js"></script>
+#+HTML_HEAD: <script type="text/javascript">
+#+HTML_HEAD: <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:auto html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_CONTAINER: div
+#+DESCRIPTION:
+#+KEYWORDS:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+HTML_HEAD:
+#+HTML_HEAD_EXTRA:
+#+SUBTITLE:
+#+INFOJS_OPT:
+#+CREATOR: <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.13)
+#+LATEX_HEADER:
+
+#+CAPTION: This is a table with lines around and between cells
+#+ATTR_HTML: :border 2 :rules all :frame border
+
+
+| a  | good | boy | that |
+|----+------+-----+------|
+| 2g |  232 | 223 | 3232 |
+
+| sdf | 232234 | 232 | 2x   |
+|-----+--------+-----+------|
+| a   | good   | boy | that |
+| a   | good   | boy | that |
+| a   | good   | boy | that |
+| a   | good   | boy | that |
+| a   | good   | boy | that |
+| a   | good   | boy | that |
+| 2g  | 232    | 223 | 3232 |
+
+
+| Keybinding    | M-x command  | Description                           |
+| <l>           | <l>          | <l>                                   |
+|---------------+--------------+---------------------------------------|
+| Emacs         |              |                                       |
+|               |              |                                       |
+| C-u C-M-x     | edebug-defun | Instrumment function for debugging.   |
+|               |              |                                       |
+|               |              |                                       |
+| Inside Edebug |              |                                       |
+| q             |              | Abort execution                       |
+| space         |              | Setep through, single step.           |
+| b             |              | Insert breakpoint                     |
+| u             |              | Unset breakpoint.                     |
+| shift-G       |              | Continue beyond breakpoint            |
+| i             |              | Jump to definition of defunction      |
+| M-:           |              | Prompt for an expression to evaluate. |
+| c             |              | Continue execution                    |
+| x             |              | Set a conditional breakpoint          |
+
+
+
+
+
+#+ATTR_HTML: :border 2 :rules all :frame border :cellspacing 4
+| <l32>                             | <l3> | <l3> | <l3> |
+| sdf                               | 232234 | 232 | 2x  |
+|-----------------------------------+-----+-----+-----|
+| sdfasdfasdfa;sdlkfjflaksjdfasdf和李老师了对方水电费克拉就是的法律框架爱克鲁斯的 时间到了房间爱卡了;收到付款了; 阿斯顿发空时间的开发了a | good | boy | that |
+| 2g                                | 232 | 223 | 3232 |
+
+
+| N | N^2 | N^3 | N^4 | ~sqrt(n)~ | ~sqrt[4](N)~ |
+|---+-----+-----+-----+-----------+--------------|
+| / |   < |     |   > |         < |            > |
+| 1 |   1 |   1 |   1 |         1 |            1 |
+| 2 |   4 |   8 |  16 |    1.4142 |       1.1892 |
+| 3 |   9 |  27 |  81 |    1.7321 |       1.3161 |
+|---+-----+-----+-----+-----------+--------------|
+#+TBLFM: $2=$1^2::$3=$1^3::$4=$1^4::$5=sqrt($1)::$6=sqrt(sqrt(($1)))
+
+#+CAPTION: This is a table with lines around and between cells
+#+ATTR_HTML: :border 2 :rules all :frame border :cellspacing 4
+|  N | N^2 | N^3 | N^4 | sqrt(n) | sqrt[4](N) |
+|----+-----+-----+-----+---------+------------|
+| /  | <   |     |     | <       |            |
+
+#+BEGIN_EXAMPLE
+:rules 就是表格竖线, 可以取两个值: "all" 或者 "groups"
+:frame 就是整个表格的框架线, 可以额选择 "border" 边界都有线, 或者 "hisides" 只是水平边界有线,竖直边界没有.
+#+END_EXAMPLE

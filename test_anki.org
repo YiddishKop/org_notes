@@ -1,0 +1,10 @@
+* Item                                               :emacs:lisp:programming:
+  :PROPERTIES:
+  :ANKI_DECK: Computing
+  :ANKI_NOTE_TYPE: Basic
+  :ANKI_FAILURE_REASON: Note creation failed for unknown reason
+  :END:
+** Front
+   How to hello world in elisp ?
+** Back
+   hello
